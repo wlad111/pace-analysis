@@ -1,20 +1,18 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import type { LapRow } from '../api'
-import type { LapEvent } from '../events'
 import type { MetricDef } from '../metrics'
 import { availableMetrics, metricCoverage } from '../metrics'
 import type { DriverSeries } from '../series'
 import type { ThemeMode } from '../theme'
 import { ViewToggle } from './Card'
+import type { DriverStats } from '../api'
 import { LapDistribution } from './LapDistribution'
-import { LapTimesChart } from './LapTimesChart'
-import { RollingPaceChart } from './RollingPaceChart'
+import { PaceProgressChart } from './PaceProgressChart'
 
 const CHART_OPTIONS = [
-  { value: 'distribution', label: 'Распределение' },
   { value: 'rolling', label: 'Динамика' },
-  { value: 'laps', label: 'Времена кругов' },
+  { value: 'distribution', label: 'Распределение' },
 ] as const
 
 type ChartChoice = (typeof CHART_OPTIONS)[number]['value']
@@ -25,9 +23,15 @@ export interface PaceExplorerProps {
   hidden: ReadonlySet<string>
   onToggle: (driver: string) => void
   onShowAll: () => void
-  madK: number
   usedLaps: ReadonlyMap<string, ReadonlySet<number>>
-  eventsByLapId: ReadonlyMap<number, LapEvent>
+  /** `/stats` rows: the dynamics tab draws its trend lines from the backend slope. */
+  statRows: readonly DriverStats[]
+  subject: string
+  rival: string
+  window: number
+  onWindow: (window: number) => void
+  relative: boolean
+  onRelative: (relative: boolean) => void
   mode: ThemeMode
   stale?: boolean
 }
@@ -47,13 +51,18 @@ export function PaceExplorer({
   hidden,
   onToggle,
   onShowAll,
-  madK,
   usedLaps,
-  eventsByLapId,
+  statRows,
+  subject,
+  rival,
+  window,
+  onWindow,
+  relative,
+  onRelative,
   mode,
   stale = false,
 }: PaceExplorerProps) {
-  const [chart, setChart] = useState<ChartChoice>('distribution')
+  const [chart, setChart] = useState<ChartChoice>('rolling')
   const [metricId, setMetricId] = useState('lap')
 
   const metrics = useMemo(() => availableMetrics(laps), [laps])
@@ -104,6 +113,22 @@ export function PaceExplorer({
         </p>
       )}
 
+      {chart === 'rolling' && (
+        <PaceProgressChart
+          laps={laps}
+          rows={statRows}
+          usedLaps={usedLaps}
+          metric={metric}
+          subject={subject}
+          rival={rival}
+          window={window}
+          onWindow={onWindow}
+          relative={relative}
+          onRelative={onRelative}
+          mode={mode}
+          stale={stale}
+        />
+      )}
       {chart === 'distribution' && (
         <LapDistribution
           laps={laps}
@@ -113,33 +138,6 @@ export function PaceExplorer({
           onShowAll={onShowAll}
           metric={metric}
           usedLaps={usedLaps}
-          mode={mode}
-          stale={stale}
-        />
-      )}
-      {chart === 'rolling' && (
-        <RollingPaceChart
-          laps={laps}
-          series={series}
-          hidden={hidden}
-          onToggle={onToggle}
-          onShowAll={onShowAll}
-          metric={metric}
-          madK={madK}
-          mode={mode}
-          stale={stale}
-        />
-      )}
-      {chart === 'laps' && (
-        <LapTimesChart
-          laps={laps}
-          series={series}
-          hidden={hidden}
-          onToggle={onToggle}
-          onShowAll={onShowAll}
-          madK={madK}
-          eventsByLapId={eventsByLapId}
-          metric={metric}
           mode={mode}
           stale={stale}
         />

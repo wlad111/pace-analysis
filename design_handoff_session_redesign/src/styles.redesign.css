@@ -1,0 +1,322 @@
+/*
+ * Additions to web/src/styles.css for the redesigned session screen.
+ *
+ * Everything below uses the existing token set; the only new token is --mono,
+ * because lap times are the content of this page and a proportional face makes
+ * columns of digits jump. Append this file to styles.css or @import it.
+ */
+
+:root {
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+/* ------------------------------------------------------------- page grid */
+
+/* Ladder + comparison side by side; charts and the table full width under it. */
+.session-grid {
+  display: grid;
+  gap: var(--gap);
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr) 424px;
+}
+
+.session-grid > .full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1180px) {
+  .session-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------------------------------------------------------------- ladder */
+
+.ladder {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ladder-row {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 10px;
+  border: 0;
+  border-bottom: 1px solid var(--grid);
+  border-left: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  grid-template-columns: 26px minmax(96px, 150px) 112px minmax(0, 1fr) 126px;
+}
+
+.ladder-row:hover {
+  background: var(--wash);
+}
+
+.ladder-row.is-a {
+  border-left-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 7%, transparent);
+}
+
+.ladder-row.is-b {
+  border-left-color: var(--series-2);
+  background: color-mix(in oklab, var(--series-2) 6%, transparent);
+}
+
+.ladder-rank {
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ladder-row.is-a .ladder-rank {
+  color: var(--accent);
+}
+
+.ladder-row.is-b .ladder-rank {
+  color: var(--series-2);
+}
+
+.ladder-name {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ladder-row.is-a .ladder-name,
+.ladder-row.is-b .ladder-name {
+  color: var(--text-primary);
+  font-weight: 650;
+}
+
+.ladder-badge {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: var(--accent-ink);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ladder-badge.is-a {
+  background: var(--accent);
+}
+
+.ladder-badge.is-b {
+  background: var(--series-2);
+  color: #ffffff;
+}
+
+.ladder-primary,
+.ladder-gap {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: right;
+}
+
+.ladder-primary b {
+  color: var(--text-primary);
+  font-family: var(--mono);
+  font-size: 21px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.ladder-row.is-a .ladder-primary b {
+  color: var(--accent);
+}
+
+.ladder-primary small,
+.ladder-gap small {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.ladder-gap b {
+  color: var(--text-secondary);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+.ladder-plot {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ladder-bar {
+  position: relative;
+  display: block;
+  height: 9px;
+  border-radius: 2px;
+  background: var(--wash-strong);
+}
+
+.ladder-bar-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 2px;
+  background: var(--axis);
+}
+
+.ladder-row.is-a .ladder-bar-fill {
+  background: var(--accent);
+}
+
+.ladder-row.is-b .ladder-bar-fill {
+  background: var(--series-2);
+}
+
+.ladder-band {
+  position: relative;
+  display: block;
+  height: 12px;
+}
+
+.ladder-band-range {
+  position: absolute;
+  top: 5px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--grid);
+}
+
+.ladder-row.is-a .ladder-band-range {
+  background: color-mix(in oklab, var(--accent) 45%, transparent);
+}
+
+.ladder-row.is-b .ladder-band-range {
+  background: color-mix(in oklab, var(--series-2) 45%, transparent);
+}
+
+.ladder-band-tick {
+  position: absolute;
+  top: 1px;
+  width: 2px;
+  height: 11px;
+  background: var(--text-muted);
+}
+
+.ladder-row.is-a .ladder-band-tick {
+  background: var(--accent);
+}
+
+.ladder-row.is-b .ladder-band-tick {
+  background: var(--series-2);
+}
+
+/* --------------------------------------------------------------- metrics */
+
+/* Times are the content of this table: monospace digits, one dominant column. */
+table.data.metrics {
+  font-variant-numeric: tabular-nums;
+}
+
+table.data.metrics td,
+table.data.metrics th[scope='row'] {
+  font-family: var(--mono);
+}
+
+table.data.metrics th[scope='row'] {
+  font-family: inherit;
+}
+
+table.data.metrics td.numeric-strong {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+table.data.metrics td.is-good {
+  color: var(--status-good);
+  font-weight: 700;
+}
+
+table.data.metrics tbody tr {
+  cursor: pointer;
+}
+
+table.data.metrics tbody tr.is-a {
+  background: color-mix(in oklab, var(--accent) 7%, transparent);
+}
+
+table.data.metrics tbody tr.is-b {
+  background: color-mix(in oklab, var(--series-2) 6%, transparent);
+}
+
+table.data.metrics tbody td:last-child {
+  width: 40%;
+  min-width: 260px;
+  padding-right: 0;
+}
+
+/* --------------------------------------------------------------- compare */
+
+.compare-headline {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin-top: 4px;
+}
+
+.compare-headline b {
+  color: var(--text-primary);
+  font-family: var(--mono);
+  font-size: 34px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.compare-headline b.is-good {
+  color: var(--status-good);
+}
+
+.compare-headline span {
+  max-width: 22ch;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.compare-axis-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stat-tile .value {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}

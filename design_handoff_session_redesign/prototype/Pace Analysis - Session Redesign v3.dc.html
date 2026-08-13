@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<style>
+  body { margin: 0; background: #efeee9; color: #0b0b0b; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  a { color: #2a78d6; text-decoration: none; }
+  a:hover { color: #1b5fae; text-decoration: underline; }
+  * { box-sizing: border-box; }
+</style>
+</helmet>
+
+<section style="display:flex;flex-direction:column;gap:18px;padding:40px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif">
+  <div style="display:flex;align-items:baseline;gap:12px">
+    <span style="display:inline-block;padding:3px 9px;border-radius:999px;background:#0b0b0b;color:#fcfcfb;font-size:12px;font-weight:600;letter-spacing:0.04em">3a</span>
+    <h2 style="margin:0;font-size:19px;font-weight:600;letter-spacing:-0.01em">Экран сессии — выбор пилотов, скользящее среднее, метрики</h2>
+  </div>
+
+  <div style="width:1440px;border:1px solid rgba(11,11,11,0.12);border-radius:14px;overflow:hidden;background:#f9f9f7;box-shadow:0 18px 50px rgba(11,11,11,0.10)">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px;border-bottom:1px solid rgba(11,11,11,0.10);background:#fcfcfb">
+      <div style="display:flex;align-items:center;gap:18px;min-width:0">
+        <span style="font-size:14px;font-weight:650;letter-spacing:-0.01em">Pace&nbsp;Analysis</span>
+        <button type="button" style="display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid rgba(11,11,11,0.10);border-radius:6px;background:#fcfcfb;color:#0b0b0b;cursor:pointer;font:inherit;font-size:13px" style-hover="background:rgba(11,11,11,0.04)">
+          <span style="font-weight:600">PRIMO GARA — Final A</span>
+          <span style="color:#898781;font-size:12px">03.08.2026 21:40 · Karting track · 6 пилотов</span>
+          <span style="color:#898781;font-size:10px">▾</span>
+        </button>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px">
+        <span style="display:flex;align-items:center;gap:9px;font-size:11px;color:#52514e">
+          <span>выборка</span>
+          <span style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:12px;font-weight:600;color:#0b0b0b">{{ sample.used }}/{{ sample.total }}</span>
+          <sc-for list="{{ exclusions }}" as="e" hint-placeholder-count="3">
+            <button type="button" onClick="{{ e.toggle }}" style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border:1px {{ e.borderStyle }} {{ e.border }};border-radius:999px;background:{{ e.bg }};color:{{ e.fg }};font:inherit;font-size:11px;cursor:pointer" style-hover="background:rgba(11,11,11,0.06)">
+              <span>{{ e.label }}</span><span style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#898781">−{{ e.count }}</span>
+            </button>
+          </sc-for>
+        </span>
+        <div style="display:inline-flex;overflow:hidden;border:1px solid rgba(11,11,11,0.10);border-radius:6px">
+          <button type="button" style="padding:5px 9px;border:0;border-right:1px solid rgba(11,11,11,0.10);background:rgba(11,11,11,0.08);color:#0b0b0b;font:inherit;font-size:12px;font-weight:600;cursor:pointer">Авто</button>
+          <button type="button" style="padding:5px 9px;border:0;border-right:1px solid rgba(11,11,11,0.10);background:#fcfcfb;color:#52514e;font:inherit;font-size:12px;cursor:pointer">Светлая</button>
+          <button type="button" style="padding:5px 9px;border:0;background:#fcfcfb;color:#52514e;font:inherit;font-size:12px;cursor:pointer">Тёмная</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 424px;align-items:stretch">
+
+      <div style="padding:20px 24px 22px;border-right:1px solid rgba(11,11,11,0.10);background:#fcfcfb">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:6px">
+          <div>
+            <h2 style="margin:0;font-size:15px;font-weight:600;letter-spacing:-0.01em">Темп пилотов</h2>
+            <p style="margin:3px 0 0;font-size:12px;color:#52514e">Клик — выбрать B для сравнения. {{ countedNote }}</p>
+          </div>
+          <div style="display:inline-flex;overflow:hidden;border:1px solid rgba(11,11,11,0.10);border-radius:6px">
+            <button type="button" onClick="{{ sortMean }}" style="padding:5px 10px;border:0;border-right:1px solid rgba(11,11,11,0.10);background:{{ meanBg }};color:{{ meanFg }};font:inherit;font-size:12px;cursor:pointer">по среднему</button>
+            <button type="button" onClick="{{ sortMedian }}" style="padding:5px 10px;border:0;background:{{ medianBg }};color:{{ medianFg }};font:inherit;font-size:12px;cursor:pointer">по медиане</button>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ rows }}" as="row" hint-placeholder-count="6">
+            <button type="button" onClick="{{ row.select }}" style="display:grid;grid-template-columns:26px 150px 112px minmax(0,1fr) 126px;align-items:center;gap:14px;width:100%;padding:11px 10px;border:0;border-bottom:1px solid #e1e0d9;border-left:2px solid {{ row.rail }};background:{{ row.bg }};text-align:left;cursor:pointer;font:inherit;border-radius:0" style-hover="background:rgba(11,11,11,0.04)">
+              <span style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:15px;font-weight:600;color:{{ row.rankColor }}">{{ row.rank }}</span>
+              <span style="display:flex;align-items:center;gap:7px;min-width:0">
+                <span style="font-size:14px;font-weight:{{ row.nameWeight }};color:{{ row.nameColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ row.name }}</span>
+                <sc-if value="{{ row.isSubject }}" hint-placeholder-val="{{ false }}"><span style="flex:none;padding:1px 6px;border-radius:3px;background:#2a78d6;color:#fcfcfb;font-size:10px;font-weight:700">A</span></sc-if>
+                <sc-if value="{{ row.isRival }}" hint-placeholder-val="{{ false }}"><span style="flex:none;padding:1px 6px;border-radius:3px;background:#eb6834;color:#fcfcfb;font-size:10px;font-weight:700">B</span></sc-if>
+              </span>
+              <span style="display:flex;flex-direction:column;gap:1px;text-align:right">
+                <span style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:21px;font-weight:600;letter-spacing:-0.02em;color:{{ row.primaryColor }}">{{ row.primary }}</span>
+                <span style="font-size:11px;color:#898781">{{ row.primaryLabel }} · {{ row.secondary }}</span>
+              </span>
+              <span style="display:flex;flex-direction:column;gap:5px">
+                <span style="position:relative;display:block;height:9px;border-radius:2px;background:#f0efe9">
+                  <span style="position:absolute;left:0;top:0;bottom:0;width:{{ row.barPct }}%;border-radius:2px;background:{{ row.barColor }}"></span>
+                </span>
+                <span style="position:relative;display:block;height:12px">
+                  <span style="position:absolute;top:5px;left:{{ row.bandLeft }}%;width:{{ row.bandWidth }}%;height:3px;border-radius:2px;background:{{ row.bandColor }}"></span>
+                  <span style="position:absolute;top:1px;left:{{ row.tickLeft }}%;width:2px;height:11px;background:{{ row.tickColor }}"></span>
+                </span>
+              </span>
+              <span style="display:flex;flex-direction:column;gap:2px;text-align:right">
+                <span style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:13px;color:#52514e">{{ row.deltaText }}</span>
+                <span style="font-size:11px;color:#898781">SD ±{{ row.sd }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+        <p style="margin:9px 0 0;font-size:11px;color:#898781;max-width:88ch;text-wrap:pretty">Полоса — отставание по выбранной метрике от лучшего в гонке. Тонкая линия — интервал «медиана ± SD» на общей шкале {{ scaleLabel }}, засечка — медиана: чем короче, тем ровнее пилот.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;padding:20px 22px 22px;background:#f9f9f7">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+          <h2 style="margin:0;font-size:15px;font-weight:600;letter-spacing:-0.01em">A / B: {{ subject.name }} — {{ rival.name }}</h2>
+          <span style="font-size:11px;color:#898781">n = {{ compare.nA }} / {{ compare.nB }}</span>
+        </div>
+
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:14px">
+          <span style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:34px;font-weight:600;letter-spacing:-0.03em;color:{{ compare.meanColor }}">{{ compare.meanDelta }}</span>
+          <span style="font-size:12px;color:#52514e;max-width:22ch">с / круг · разность средних (A − B)</span>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;gap:10px;margin-top:14px;font-size:10.5px;color:#898781">
+          <span>← быстрее {{ subject.name }}</span>
+          <span>быстрее {{ rival.name }} →</span>
+        </div>
+        <svg viewBox="0 0 380 40" width="100%" style="display:block;margin-top:4px;overflow:visible">
+          <line x1="0" y1="20" x2="380" y2="20" stroke="#e1e0d9"></line>
+          <line x1="190" y1="2" x2="190" y2="32" stroke="#c3c2b7" stroke-dasharray="2 3"></line>
+          <text x="190" y="40" text-anchor="middle" fill="#898781" font-size="9.5">0</text>
+          <rect x="{{ compare.ciX }}" y="11" width="{{ compare.ciW }}" height="8" rx="4" fill="rgba(42,120,214,0.22)"></rect>
+          <circle cx="{{ compare.pointX }}" cy="15" r="5" fill="#2a78d6"></circle>
+        </svg>
+        <p style="margin:8px 0 0;font-size:11px;color:#898781;text-wrap:pretty">{{ compare.ciNote }}</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+          <sc-for list="{{ compare.tiles }}" as="t" hint-placeholder-count="4">
+            <div style="padding:11px 12px;border:1px solid rgba(11,11,11,0.10);border-radius:8px;background:#fcfcfb">
+              <div style="font-size:11px;color:#52514e">{{ t.label }}</div>
+              <div style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:18px;font-weight:600;letter-spacing:-0.02em;color:{{ t.color }}">{{ t.value }}</div>
+              <div style="font-size:10.5px;color:#898781">{{ t.hint }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="margin-top:auto;padding-top:14px">
+          <p style="margin:0;padding:10px 12px;border:1px solid rgba(11,11,11,0.10);border-left:3px solid #fab219;border-radius:8px;background:#fcfcfb;font-size:11px;line-height:1.5;color:#52514e;text-wrap:pretty">Круги одной гонки не независимы: общий трафик, деградация резины, чистый воздух у лидера. p-value описывает выборку, а не отвечает «кто быстрее» — смотрите на разность с CI и размер эффекта.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:22px 24px 24px;border-top:1px solid rgba(11,11,11,0.10)">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px">
+        <div>
+          <h2 style="margin:0;font-size:15px;font-weight:600;letter-spacing:-0.01em">Скользящее среднее по ходу гонки</h2>
+          <p style="margin:3px 0 0;font-size:12px;color:#52514e">Окно {{ windowLabel }} зачётных кругов. {{ trendSentence }}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:11px;color:#52514e">окно</span>
+            <span style="display:inline-flex;overflow:hidden;border:1px solid rgba(11,11,11,0.10);border-radius:6px">
+              <sc-for list="{{ windowOptions }}" as="w" hint-placeholder-count="3">
+                <button type="button" onClick="{{ w.pick }}" style="padding:5px 10px;border:0;border-right:1px solid rgba(11,11,11,0.10);background:{{ w.bg }};color:{{ w.fg }};font:inherit;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12px;font-weight:{{ w.weight }};cursor:pointer">{{ w.label }}</button>
+              </sc-for>
+            </span>
+          </span>
+          <span style="display:inline-flex;overflow:hidden;border:1px solid rgba(11,11,11,0.10);border-radius:6px">
+            <button type="button" onClick="{{ setAbsolute }}" style="padding:5px 10px;border:0;border-right:1px solid rgba(11,11,11,0.10);background:{{ absBg }};color:{{ absFg }};font:inherit;font-size:12px;cursor:pointer">время круга</button>
+            <button type="button" onClick="{{ setDelta }}" style="padding:5px 10px;border:0;background:{{ relBg }};color:{{ relFg }};font:inherit;font-size:12px;cursor:pointer">к своей медиане</button>
+          </span>
+        </div>
+      </div>
+
+      <div style="position:relative;margin-top:12px;padding:14px 16px 10px;border:1px solid rgba(11,11,11,0.10);border-radius:10px;background:#fcfcfb">
+        <div style="position:relative">
+          <svg viewBox="0 0 1340 320" width="100%" style="display:block;overflow:visible">
+            <sc-for list="{{ roll.yTicks }}" as="t" hint-placeholder-count="5">
+              <line x1="54" y1="{{ t.y }}" x2="1246" y2="{{ t.y }}" stroke="#e1e0d9"></line>
+            </sc-for>
+            <sc-if value="{{ roll.hasBase }}" hint-placeholder-val="{{ true }}">
+              <line x1="54" y1="{{ roll.baseY }}" x2="1246" y2="{{ roll.baseY }}" stroke="#c3c2b7" stroke-dasharray="4 4"></line>
+            </sc-if>
+            <sc-for list="{{ roll.lines }}" as="l" hint-placeholder-count="6">
+              <polyline points="{{ l.points }}" fill="none" stroke="{{ l.color }}" stroke-width="{{ l.width }}" stroke-opacity="{{ l.opacity }}" stroke-linejoin="round" stroke-linecap="round"></polyline>
+            </sc-for>
+            <sc-if value="{{ showTrend }}" hint-placeholder-val="{{ true }}">
+              <line x1="{{ roll.trend.x1 }}" y1="{{ roll.trend.y1 }}" x2="{{ roll.trend.x2 }}" y2="{{ roll.trend.y2 }}" stroke="#2a78d6" stroke-width="1.4" stroke-dasharray="6 4"></line>
+            </sc-if>
+            <line x1="54" y1="282" x2="1246" y2="282" stroke="#c3c2b7"></line>
+            <sc-for list="{{ roll.events }}" as="m" hint-placeholder-count="4">
+              <rect x="{{ m.x0 }}" y="296" width="9" height="9" transform="{{ m.transform }}" fill="#fcfcfb" stroke="#4a3aa7" stroke-width="1.3"></rect>
+            </sc-for>
+          </svg>
+          <div style="position:absolute;inset:0;pointer-events:none">
+            <sc-for list="{{ roll.labels }}" as="l" hint-placeholder-count="24">
+              <span style="position:absolute;left:{{ l.left }}%;top:{{ l.top }}%;transform:{{ l.tf }};color:{{ l.color }};font-size:{{ l.size }}px;font-weight:{{ l.weight }};font-family:{{ l.font }};font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1">{{ l.text }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:0 24px 26px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px">
+        <div>
+          <h2 style="margin:0;font-size:15px;font-weight:600;letter-spacing:-0.01em">Метрики темпа</h2>
+          <p style="margin:3px 0 0;font-size:12px;color:#52514e">Только зачётные круги. Клик по заголовку — сортировка, клик по строке — выбрать B.</p>
+        </div>
+        <span style="display:flex;align-items:center;gap:14px">
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#52514e"><span style="width:12px;height:7px;background:rgba(42,120,214,0.35);border:1px solid #2a78d6"></span>IQR</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#52514e"><span style="width:2px;height:11px;background:#0b0b0b"></span>медиана</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#52514e"><span style="width:8px;height:8px;transform:rotate(45deg);background:#fcfcfb;border:1.4px solid #52514e"></span>среднее</span>
+        </span>
+      </div>
+
+      <div style="margin-top:12px;border:1px solid rgba(11,11,11,0.10);border-radius:10px;background:#fcfcfb;overflow:hidden">
+        <div style="display:grid;grid-template-columns:44px 148px 96px 88px 88px 88px 100px 104px 84px 74px minmax(0,1fr);align-items:center;padding:0 14px;border-bottom:1px solid #e1e0d9;background:#f4f3ee">
+          <sc-for list="{{ columns }}" as="c" hint-placeholder-count="11">
+            <button type="button" onClick="{{ c.sort }}" title="{{ c.title }}" style="display:flex;align-items:center;justify-content:{{ c.justify }};gap:4px;padding:9px 8px;border:0;background:none;color:{{ c.color }};font:inherit;font-size:11px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;cursor:pointer">
+              <span>{{ c.label }}</span><span style="color:#898781;font-size:9px">{{ c.arrow }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-for list="{{ statRows }}" as="row" hint-placeholder-count="6">
+          <button type="button" onClick="{{ row.select }}" style="display:grid;grid-template-columns:44px 148px 96px 88px 88px 88px 100px 104px 84px 74px minmax(0,1fr);align-items:center;width:100%;padding:0 14px;border:0;border-bottom:1px solid #e1e0d9;border-left:2px solid {{ row.rail }};background:{{ row.bg }};font:inherit;text-align:left;cursor:pointer;border-radius:0" style-hover="background:rgba(11,11,11,0.04)">
+            <span style="padding:9px 8px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12px;color:#898781">{{ row.position }}</span>
+            <span style="display:flex;align-items:center;gap:7px;padding:9px 8px;min-width:0">
+              <span style="font-size:13.5px;font-weight:{{ row.nameWeight }};color:{{ row.nameColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ row.name }}</span>
+              <sc-if value="{{ row.isSubject }}" hint-placeholder-val="{{ false }}"><span style="flex:none;padding:1px 5px;border-radius:3px;background:#2a78d6;color:#fcfcfb;font-size:9.5px;font-weight:700">A</span></sc-if>
+              <sc-if value="{{ row.isRival }}" hint-placeholder-val="{{ false }}"><span style="flex:none;padding:1px 5px;border-radius:3px;background:#eb6834;color:#fcfcfb;font-size:9.5px;font-weight:700">B</span></sc-if>
+            </span>
+            <span style="padding:9px 8px;text-align:right;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:17px;font-weight:600;letter-spacing:-0.02em;color:{{ row.meanColor }}">{{ row.mean }}</span>
+            <span style="padding:9px 8px;text-align:right;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:13px;color:#0b0b0b">{{ row.median }}</span>
+            <span style="padding:9px 8px;text-align:right;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:13px;color:#52514e">{{ row.best }}</span>
+            <span style="padding:9px 8px;text-align:right;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:13px;color:{{ row.sdColor }};font-weight:{{ row.sdWeight }}">{{ row.sd }}</span>
+            <span style="padding:9px 8px;text-align:right;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:13px;color:#52514e">{{ row.gap }}</span>
+            <span style="padding:9px 8px;text-align:right;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:12.5px;color:{{ row.trendColor }};font-weight:{{ row.trendWeight }}">{{ row.trend }}</span>
+            <span style="padding:9px 8px;text-align:right;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:13px;color:#898781">{{ row.ideal }}</span>
+            <span style="padding:9px 8px;text-align:right;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;font-size:12px;color:#898781">{{ row.n }}</span>
+            <span style="padding:9px 8px">
+              <svg viewBox="0 0 440 26" width="100%" style="display:block;overflow:visible">
+                <line x1="{{ row.box.wLo }}" y1="13" x2="{{ row.box.wHi }}" y2="13" stroke="{{ row.box.stroke }}" stroke-width="1"></line>
+                <line x1="{{ row.box.wLo }}" y1="8" x2="{{ row.box.wLo }}" y2="18" stroke="{{ row.box.stroke }}" stroke-width="1"></line>
+                <line x1="{{ row.box.wHi }}" y1="8" x2="{{ row.box.wHi }}" y2="18" stroke="{{ row.box.stroke }}" stroke-width="1"></line>
+                <rect x="{{ row.box.q1 }}" y="5" width="{{ row.box.iqrW }}" height="16" rx="2" fill="{{ row.box.fill }}" stroke="{{ row.box.stroke }}" stroke-width="1"></rect>
+                <line x1="{{ row.box.med }}" y1="3" x2="{{ row.box.med }}" y2="23" stroke="#0b0b0b" stroke-width="2"></line>
+                <rect x="{{ row.box.meanX }}" y="9" width="8" height="8" transform="{{ row.box.meanRot }}" fill="#fcfcfb" stroke="{{ row.box.stroke }}" stroke-width="1.3"></rect>
+                <sc-for list="{{ row.box.points }}" as="p" hint-placeholder-count="16">
+                  <circle cx="{{ p.x }}" cy="{{ p.y }}" r="1.8" fill="{{ p.fill }}" fill-opacity="0.75"></circle>
+                </sc-for>
+              </svg>
+            </span>
+          </button>
+        </sc-for>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 22px;background:#f9f9f7">
+          <span style="font-size:11px;color:#898781">Тренд — наклон OLS в с на 10 кругов, жирным p &lt; 0.05. Идеал — сумма лучших секторов, считается только там, где есть секторы.</span>
+          <span style="font-size:11px;color:#898781">Данные — все 120 кругов эталонного письма Final A из <code style="font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace">tests/fixtures</code></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;subject&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;WLAD111&quot;,&quot;TWG&quot;,&quot;KOLYA11&quot;,&quot;DENISENKO&quot;,&quot;PHREEMAN&quot;,&quot;ИГОРЬ53&quot;],&quot;default&quot;:&quot;WLAD111&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Сравнение&quot;},&quot;rival&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;TWG&quot;,&quot;WLAD111&quot;,&quot;KOLYA11&quot;,&quot;DENISENKO&quot;,&quot;PHREEMAN&quot;,&quot;ИГОРЬ53&quot;],&quot;default&quot;:&quot;TWG&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Сравнение&quot;},&quot;showTrend&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;График&quot;}}">
+/**
+ * Real Final A data: every lap of all six drivers, transcribed from the
+ * repository fixture (tests/fixtures/final_a_expected.json via
+ * web/src/mock/session.json). Times are integer milliseconds, null = no time
+ * (lap 1 is a standing start). `joker` / `pit` are the detector's tagged laps,
+ * `ideal` is the sum of best sectors — only the e-mail recipient has sectors.
+ */
+const DATA = [
+  { name: 'KOLYA11', position: 1, kart: '11', official: 26012, joker: 19, pit: 17, ideal: null,
+    laps: [null, 28168, 28015, 27968, 28006, 27971, 27920, 28157, 27904, 27983, 27899, 27903, 27897, 27963, 28013, 29558, 41889, 28276, 26012, 27956] },
+  { name: 'WLAD111', position: 2, kart: '2', official: 26788, joker: 3, pit: 19, ideal: 27718,
+    laps: [null, 28872, 26788, 28221, 28380, 28043, 27998, 28034, 27903, 27850, 27833, 27989, 27804, 28061, 28136, 28650, 28098, 28058, 40342, 28089] },
+  { name: 'TWG', position: 3, kart: '4', official: 25845, joker: 14, pit: 3, ideal: null,
+    laps: [null, 28544, 44455, 28472, 28204, 28255, 27981, 28180, 27960, 28023, 27791, 27838, 27837, 25845, 27988, 27876, 27840, 28299, 27932, 27986] },
+  { name: 'DENISENKO', position: 4, kart: '7', official: 26341, joker: 15, pit: 5, ideal: null,
+    laps: [null, 28396, 28383, 28446, 40876, 28604, 28363, 28441, 28493, 28249, 28301, 28286, 28702, 28429, 26341, 28561, 28533, 28283, 28275, 28232] },
+  { name: 'PHREEMAN', position: 5, kart: '5', official: 26359, joker: 5, pit: 18, ideal: null,
+    laps: [null, 28762, 29349, 29536, 26359, 28400, 28345, 28249, 28781, 28299, 28648, 28352, 28314, 28598, 28379, 28413, 28384, 40993, 28608, 28337] },
+  { name: 'ИГОРЬ53', position: 6, kart: '19', official: 28380, joker: null, pit: 14, ideal: null,
+    laps: [null, 29285, 29938, 29358, 28526, 28789, 28693, 28937, 29209, 28741, 28380, 28695, 28664, 42164, 32178, 28592, 28705, 28645, 29020, 28559] },
+]
+const LAPS = 20
+const ACCENT = '#2a78d6', RIVAL = '#eb6834', GREY = '#c3c2b7', MUTED = '#898781'
+const INK = '#0b0b0b', SECOND = '#52514e', GOOD = '#0ca30c', WARN = '#d03b3b'
+const MONO = "ui-monospace,'SF Mono',Menlo,Consolas,monospace"
+
+function lcg(seedText) {
+  let s = 0
+  for (let i = 0; i < seedText.length; i++) s = (s * 31 + seedText.charCodeAt(i)) % 100000
+  return () => { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296 }
+}
+const TRACES = new Map(DATA.map((d) => [d.name, d.laps.map((t, i) => ({
+  n: i + 1,
+  t: t === undefined ? null : t,
+  kind: i + 1 === d.joker ? 'joker' : i + 1 === d.pit ? 'pit' : 'pace',
+}))]))
+
+const mean = (a) => a.reduce((s, v) => s + v, 0) / a.length
+const quantile = (sorted, q) => {
+  const pos = (sorted.length - 1) * q, lo = Math.floor(pos), hi = Math.ceil(pos)
+  return sorted[lo] + (sorted[hi] - sorted[lo]) * (pos - lo)
+}
+const median = (a) => quantile([...a].sort((x, y) => x - y), 0.5)
+function sd(a) {
+  if (a.length < 2) return null
+  const m = mean(a)
+  return Math.sqrt(a.reduce((s, v) => s + (v - m) * (v - m), 0) / (a.length - 1))
+}
+const mad = (a) => median(a.map((v) => Math.abs(v - median(a))))
+function ols(points) {
+  const n = points.length
+  if (n < 3) return { slope: null, intercept: 0, p: null }
+  const mx = mean(points.map((p) => p.x)), my = mean(points.map((p) => p.y))
+  let sxx = 0, sxy = 0
+  points.forEach((p) => { sxx += (p.x - mx) * (p.x - mx); sxy += (p.x - mx) * (p.y - my) })
+  const slope = sxy / sxx, intercept = my - slope * mx
+  let sse = 0
+  points.forEach((p) => { const r = p.y - (intercept + slope * p.x); sse += r * r })
+  const se = Math.sqrt(sse / (n - 2) / sxx)
+  return { slope, intercept, p: pFromT(se === 0 ? 0 : slope / se, n - 2) }
+}
+function gammln(x) {
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5]
+  let y = x, tmp = x + 5.5, ser = 1.000000000190015
+  tmp -= (x + 0.5) * Math.log(tmp)
+  for (let j = 0; j < 6; j++) ser += c[j] / ++y
+  return -tmp + Math.log(2.5066282746310005 * ser / x)
+}
+function betacf(a, b, x) {
+  const MAXIT = 200, EPS = 3e-14, FPMIN = 1e-300
+  const qab = a + b, qap = a + 1, qam = a - 1
+  let c = 1, d = 1 - qab * x / qap
+  if (Math.abs(d) < FPMIN) d = FPMIN
+  d = 1 / d
+  let h = d
+  for (let m = 1; m <= MAXIT; m++) {
+    const m2 = 2 * m
+    let aa = m * (b - m) * x / ((qam + m2) * (a + m2))
+    d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN
+    c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN
+    d = 1 / d; h *= d * c
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2))
+    d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN
+    c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN
+    d = 1 / d
+    const del = d * c
+    h *= del
+    if (Math.abs(del - 1) < EPS) break
+  }
+  return h
+}
+function betai(a, b, x) {
+  if (x <= 0) return 0
+  if (x >= 1) return 1
+  const bt = Math.exp(gammln(a + b) - gammln(a) - gammln(b) + a * Math.log(x) + b * Math.log(1 - x))
+  return x < (a + 1) / (a + b + 2) ? bt * betacf(a, b, x) / a : 1 - bt * betacf(b, a, 1 - x) / b
+}
+const pFromT = (t, df) => (df <= 0 ? null : betai(df / 2, 0.5, df / (df + t * t)))
+function normCdf(z) {
+  const t = 1 / (1 + 0.2316419 * Math.abs(z))
+  const poly = t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))))
+  const p = 1 - 0.3989422804014327 * Math.exp(-z * z / 2) * poly
+  return z >= 0 ? p : 1 - p
+}
+function welch(a, b) {
+  const va = sd(a) ** 2, vb = sd(b) ** 2
+  const se = Math.sqrt(va / a.length + vb / b.length)
+  const t = (mean(a) - mean(b)) / se
+  const df = (va / a.length + vb / b.length) ** 2 /
+    ((va / a.length) ** 2 / (a.length - 1) + (vb / b.length) ** 2 / (b.length - 1))
+  return { t, df, p: pFromT(t, df) }
+}
+function mannWhitney(a, b) {
+  const all = a.map((v) => ({ v, g: 0 })).concat(b.map((v) => ({ v, g: 1 }))).sort((x, y) => x.v - y.v)
+  let i = 0
+  while (i < all.length) {
+    let j = i
+    while (j + 1 < all.length && all[j + 1].v === all[i].v) j++
+    const r = (i + j) / 2 + 1
+    for (let k = i; k <= j; k++) all[k].rank = r
+    i = j + 1
+  }
+  const ra = all.filter((x) => x.g === 0).reduce((s, x) => s + x.rank, 0)
+  const n1 = a.length, n2 = b.length
+  const u1 = ra - n1 * (n1 + 1) / 2
+  const u = Math.min(u1, n1 * n2 - u1)
+  const z = (u - n1 * n2 / 2) / Math.sqrt(n1 * n2 * (n1 + n2 + 1) / 12)
+  return { u, p: 2 * (1 - normCdf(Math.abs(z))), cliff: (2 * u1) / (n1 * n2) - 1 }
+}
+function bootstrapCi(a, b) {
+  const rnd = lcg('boot' + a.length + b.length + Math.round(a[0]) + Math.round(b[0]))
+  const diffs = []
+  for (let r = 0; r < 600; r++) {
+    const ra = [], rb = []
+    for (let i = 0; i < a.length; i++) ra.push(a[Math.floor(rnd() * a.length)])
+    for (let i = 0; i < b.length; i++) rb.push(b[Math.floor(rnd() * b.length)])
+    diffs.push(median(ra) - median(rb))
+  }
+  diffs.sort((x, y) => x - y)
+  return { lo: quantile(diffs, 0.025), hi: quantile(diffs, 0.975) }
+}
+const fmt = (ms, digits) => (ms === null || ms === undefined || !Number.isFinite(ms) ? '—' : (Math.abs(ms) / 1000).toFixed(digits === undefined ? 3 : digits))
+const signed = (ms, digits) => {
+  if (ms === null || !Number.isFinite(ms)) return '—'
+  const s = (Math.abs(ms) / 1000).toFixed(digits === undefined ? 3 : digits)
+  return (ms > 0 ? '+' : ms < 0 ? '−' : '±') + s
+}
+const fmtP = (p) => (p === null ? '—' : p < 0.001 ? '<0.001' : p.toFixed(3))
+const trendFlat = (slope) => slope === null || !Number.isFinite(slope) || Math.abs(slope * 10) < 5
+const trend10 = (slope) => (trendFlat(slope) ? '±0.00' : signed(slope * 10, 2))
+
+class Component extends DCLogic {
+  state = { rival: null, sort: 'mean', asc: true, ladder: 'mean', win: 5, rel: false, dropFirst: true, dropEvents: true, dropSlow: true }
+
+  get subject() {
+    return DATA.find((d) => d.name === this.props.subject) || DATA.find((d) => d.name === 'WLAD111')
+  }
+  get rival() {
+    const chosen = this.state.rival || this.props.rival
+    const found = DATA.find((d) => d.name === chosen)
+    if (found && found.name !== this.subject.name) return found
+    return DATA.find((d) => d.name !== this.subject.name)
+  }
+  colorOf(name) {
+    if (name === this.subject.name) return ACCENT
+    if (name === this.rival.name) return RIVAL
+    return GREY
+  }
+  sample(d) {
+    const laps = TRACES.get(d.name)
+    const stage1 = laps.filter((l) => l.t !== null && (!this.state.dropFirst || l.n > 1) && (!this.state.dropEvents || l.kind === 'pace'))
+    const base = median(stage1.map((l) => l.t))
+    const limit = base + 3 * 1.4826 * mad(stage1.map((l) => l.t))
+    const counted = [], dropped = []
+    laps.forEach((l) => {
+      if (l.t === null) { dropped.push({ ...l, why: 'нет времени' }); return }
+      if (this.state.dropFirst && l.n === 1) { dropped.push({ ...l, why: 'стартовый' }); return }
+      if (this.state.dropEvents && l.kind !== 'pace') { dropped.push({ ...l, why: l.kind }); return }
+      if (this.state.dropSlow && l.t > limit) { dropped.push({ ...l, why: 'выброс' }); return }
+      counted.push(l)
+    })
+    return { counted, dropped }
+  }
+  stats(d) {
+    const { counted, dropped } = this.sample(d)
+    const v = counted.map((l) => l.t)
+    const s = [...v].sort((x, y) => x - y)
+    const fit = ols(counted.map((l) => ({ x: l.n, y: l.t })))
+    return {
+      driver: d, counted, dropped, values: v, n: v.length, total: TRACES.get(d.name).length,
+      mean: mean(v), median: median(v), sd: sd(v), best: s[0], hi: s[s.length - 1], lo: s[0],
+      q1: quantile(s, 0.25), q3: quantile(s, 0.75), slope: fit.slope, slopeP: fit.p, intercept: fit.intercept,
+    }
+  }
+  rolling(stat) {
+    const w = this.state.win, out = []
+    stat.counted.forEach((l, i) => {
+      if (i + 1 < w) return
+      out.push({ n: l.n, v: mean(stat.counted.slice(i + 1 - w, i + 1).map((x) => x.t)) })
+    })
+    return out
+  }
+
+  renderVals() {
+    const subject = this.subject, rival = this.rival
+    const all = DATA.map((d) => this.stats(d))
+    const byName = new Map(all.map((s) => [s.driver.name, s]))
+    const sub = byName.get(subject.name), riv = byName.get(rival.name)
+    const rel = this.state.rel
+    const pickRival = (name) => () => this.setState({ rival: name === subject.name ? null : name })
+
+    const countWhy = (why) => all.reduce((s, x) => s + x.dropped.filter((l) => l.why === why).length, 0)
+    const chip = (label, on, count, toggle) => ({
+      label, on, count: String(count), toggle,
+      bg: on ? 'rgba(11,11,11,0.08)' : '#fcfcfb', fg: on ? INK : MUTED,
+      border: on ? 'rgba(11,11,11,0.10)' : '#c3c2b7', borderStyle: on ? 'solid' : 'dashed',
+    })
+    const exclusions = [
+      chip('стартовый', this.state.dropFirst, countWhy('стартовый') + countWhy('нет времени'), () => this.setState({ dropFirst: !this.state.dropFirst })),
+      chip('джокер и пит', this.state.dropEvents, countWhy('joker') + countWhy('pit'), () => this.setState({ dropEvents: !this.state.dropEvents })),
+      chip('выбросы', this.state.dropSlow, countWhy('выброс'), () => this.setState({ dropSlow: !this.state.dropSlow })),
+    ]
+
+    // ---------- ladder
+    const ladderKey = this.state.ladder
+    const metric = (s) => (ladderKey === 'median' ? s.median : s.mean)
+    const ladder = [...all].sort((a, b) => metric(a) - metric(b))
+    const bestMetric = metric(ladder[0])
+    const worstGap = metric(ladder[ladder.length - 1]) - bestMetric
+    const bandMin = Math.min(...all.map((s) => s.median - s.sd)) - 120
+    const bandMax = Math.max(...all.map((s) => s.median + s.sd)) + 120
+    const bandPct = (ms) => ((ms - bandMin) / (bandMax - bandMin)) * 100
+    const rows = ladder.map((s, i) => {
+      const isSubject = s.driver.name === subject.name
+      const isRival = s.driver.name === rival.name
+      const gap = metric(s) - bestMetric
+      return {
+        rank: String(i + 1), name: s.driver.name, isSubject, isRival, select: pickRival(s.driver.name),
+        rankColor: isSubject ? ACCENT : isRival ? RIVAL : MUTED,
+        rail: isSubject ? ACCENT : isRival ? RIVAL : 'transparent',
+        bg: isSubject ? 'rgba(42,120,214,0.06)' : isRival ? 'rgba(235,104,52,0.05)' : 'transparent',
+        nameColor: isSubject || isRival ? INK : SECOND,
+        nameWeight: isSubject || isRival ? '650' : '500',
+        primary: fmt(metric(s)),
+        primaryColor: isSubject ? ACCENT : INK,
+        primaryLabel: ladderKey === 'median' ? 'медиана' : 'среднее',
+        secondary: ladderKey === 'median' ? 'ср. ' + fmt(s.mean) : 'мед. ' + fmt(s.median),
+        deltaText: gap === 0 ? 'лучший' : signed(gap),
+        sd: fmt(s.sd),
+        barPct: worstGap === 0 ? 2 : Math.max(2, (gap / worstGap) * 100),
+        barColor: isSubject ? ACCENT : isRival ? RIVAL : '#d8d7ce',
+        bandLeft: bandPct(s.median - s.sd), bandWidth: bandPct(s.median + s.sd) - bandPct(s.median - s.sd),
+        bandColor: isSubject ? 'rgba(42,120,214,0.45)' : isRival ? 'rgba(235,104,52,0.45)' : '#dedcd3',
+        tickLeft: bandPct(s.median), tickColor: isSubject ? ACCENT : isRival ? RIVAL : MUTED,
+      }
+    })
+
+    // ---------- rolling chart
+    const RW = 1340, RH = 320, PL = 54, PRIGHT = 94, PT = 16, PB = 282
+    const rx = (n) => PL + ((n - 1) / (LAPS - 1)) * (RW - PL - PRIGHT)
+    const seriesRoll = all.map((s) => ({ stat: s, pts: this.rolling(s).map((p) => ({ n: p.n, v: rel ? p.v - s.median : p.v })) }))
+    const rollVals = []
+    seriesRoll.forEach((s) => s.pts.forEach((p) => rollVals.push(p.v)))
+    const rLo = Math.min(...rollVals) - 40, rHi = Math.max(...rollVals) + 40
+    const ry = (v) => PT + (1 - (v - rLo) / (rHi - rLo)) * (PB - PT)
+    const lines = [], ends = []
+    seriesRoll.forEach((s) => {
+      const hot = s.stat.driver.name === subject.name || s.stat.driver.name === rival.name
+      const color = this.colorOf(s.stat.driver.name)
+      lines.push({
+        points: s.pts.map((p) => rx(p.n).toFixed(1) + ',' + ry(p.v).toFixed(1)).join(' '),
+        color, width: hot ? 2.4 : 1.3, opacity: hot ? 1 : 0.55,
+      })
+      const last = s.pts[s.pts.length - 1]
+      ends.push({ x: rx(last.n) + 9, y: ry(last.v), name: s.stat.driver.name, color: hot ? color : MUTED, weight: hot ? '650' : '400' })
+    })
+    const subFit = ols(sub.counted.map((l) => ({ x: l.n, y: rel ? l.t - sub.median : l.t })))
+    const fitAt = (n) => subFit.intercept + subFit.slope * n
+
+    const label = (x, y, text, opt) => ({
+      left: ((x / RW) * 100).toFixed(2), top: ((y / RH) * 100).toFixed(2), text,
+      tf: opt.tf, color: opt.color || MUTED, size: opt.size || 10.5, weight: opt.weight || '400', font: opt.font || MONO,
+    })
+    const yTicks = [], labels = []
+    for (let i = 0; i <= 4; i++) {
+      const v = rLo + ((rHi - rLo) * i) / 4
+      yTicks.push({ y: ry(v).toFixed(1) })
+      labels.push(label(46, ry(v), rel ? signed(v, 2) : fmt(v, 2), { tf: 'translate(-100%,-50%)' }))
+    }
+    for (let n = 2; n <= LAPS; n += 2) labels.push(label(rx(n), 293, String(n), { tf: 'translate(-50%,0)' }))
+    // End-of-line names replace the legend, so they must never overlap.
+    const stack = [...ends].sort((a, b) => a.y - b.y)
+    for (let i = 1; i < stack.length; i++) if (stack[i].y - stack[i - 1].y < 14) stack[i].y = stack[i - 1].y + 14
+    const overflow = stack[stack.length - 1].y - (PB - 6)
+    if (overflow > 0) {
+      stack.forEach((s) => { s.y -= overflow })
+      for (let i = 1; i < stack.length; i++) if (stack[i].y - stack[i - 1].y < 14) stack[i].y = stack[i - 1].y + 14
+      if (stack[0].y < 14) stack[0].y = 14
+    }
+    stack.forEach((e) => labels.push(label(e.x, e.y, e.name, { tf: 'translate(0,-50%)', color: e.color, weight: e.weight, size: 11, font: 'inherit' })))
+    if (this.props.showTrend !== false) {
+      labels.push(label(rx(LAPS) - 6, ry(fitAt(LAPS)) - 12, 'тренд ' + trend10(sub.slope) + ' с / 10 кр., p = ' + fmtP(sub.slopeP), { tf: 'translate(-100%,-100%)', color: ACCENT }))
+    }
+    if (rel) labels.push(label(1244, ry(0) - 7, 'своя медиана', { tf: 'translate(-100%,-100%)', font: 'inherit' }))
+    const events = sub.dropped.filter((l) => l.why === 'joker' || l.why === 'pit').map((l) => ({
+      x0: (rx(l.n) - 4.5).toFixed(1),
+      transform: l.why === 'joker' ? 'rotate(45 ' + rx(l.n).toFixed(1) + ' 300.5)' : '',
+    }))
+    sub.dropped.filter((l) => l.why === 'joker' || l.why === 'pit').forEach((l) =>
+      labels.push(label(rx(l.n), 312, l.why === 'joker' ? 'джокер' : 'пит', { tf: 'translate(-50%,0)', size: 9.5, font: 'inherit' })))
+    labels.push(label(PL, 312, 'круг →', { tf: 'translate(0,0)', size: 9.5, font: 'inherit' }))
+
+    // ---------- metrics table
+    const cols = [
+      { key: 'position', label: 'Поз', align: 'left', title: 'Позиция на финише по протоколу' },
+      { key: 'name', label: 'Пилот', align: 'left', title: 'Ник в системе тайминга' },
+      { key: 'mean', label: 'Среднее', align: 'right', title: 'Среднее зачётного круга: суммарное время отрезка = n × среднее' },
+      { key: 'median', label: 'Медиана', align: 'right', title: 'Типичный круг, устойчива к отдельным грязным кругам' },
+      { key: 'best', label: 'Лучший', align: 'right', title: 'Быстрейший зачётный круг' },
+      { key: 'sd', label: 'Разброс SD', align: 'right', title: 'Две трети кругов укладываются в «среднее ± SD»' },
+      { key: 'gap', label: 'Отставание', align: 'right', title: 'На сколько среднее медленнее лучшего среднего в гонке' },
+      { key: 'slope', label: 'Тренд / 10 кр.', align: 'right', title: 'Наклон OLS: плюс — замедлялся к концу' },
+      { key: 'ideal', label: 'Идеал', align: 'right', title: 'Сумма лучших секторов — есть только у получателя письма' },
+      { key: 'n', label: 'Круги', align: 'right', title: 'Зачётных из записанных' },
+      { key: 'box', label: 'Распределение', align: 'left', title: 'Круги, IQR, медиана и среднее на общей шкале' },
+    ].map((c) => ({
+      ...c, justify: c.align === 'right' ? 'flex-end' : 'flex-start',
+      color: this.state.sort === c.key ? INK : SECOND,
+      arrow: this.state.sort === c.key ? (this.state.asc ? '▲' : '▼') : '',
+      sort: () => this.setState({ sort: c.key, asc: this.state.sort === c.key ? !this.state.asc : true }),
+    }))
+    const bestMean = Math.min(...all.map((s) => s.mean))
+    const key = this.state.sort
+    const sortVal = (s) => {
+      if (key === 'name') return s.driver.name
+      if (key === 'position') return s.driver.position
+      if (key === 'ideal') return s.driver.ideal === null ? Infinity : s.driver.ideal
+      if (key === 'gap') return s.mean - bestMean
+      if (key === 'box') return s.median
+      if (key === 'slope') return s.slope
+      if (key === 'n') return s.n
+      return s[key]
+    }
+    const sorted = [...all].sort((a, b) => {
+      const x = sortVal(a), y = sortVal(b)
+      const order = typeof x === 'string' ? x.localeCompare(y) : x - y
+      return this.state.asc ? order : -order
+    })
+    const scaleLo = Math.min(...all.map((s) => s.lo)) - 80
+    const scaleHi = Math.max(...all.map((s) => s.hi)) + 80
+    const bx = (ms) => ((ms - scaleLo) / (scaleHi - scaleLo)) * 440
+    const minSd = Math.min(...all.map((s) => s.sd))
+    const statRows = sorted.map((s) => {
+      const isSubject = s.driver.name === subject.name
+      const isRival = s.driver.name === rival.name
+      const stroke = isSubject ? ACCENT : isRival ? RIVAL : '#8f8d85'
+      const jitter = lcg('j' + s.driver.name)
+      return {
+        position: String(s.driver.position), name: s.driver.name, isSubject, isRival, select: pickRival(s.driver.name),
+        rail: isSubject ? ACCENT : isRival ? RIVAL : 'transparent',
+        bg: isSubject ? 'rgba(42,120,214,0.06)' : isRival ? 'rgba(235,104,52,0.05)' : 'transparent',
+        nameColor: isSubject || isRival ? INK : SECOND,
+        nameWeight: isSubject || isRival ? '650' : '500',
+        mean: fmt(s.mean), meanColor: isSubject ? ACCENT : INK,
+        median: fmt(s.median), best: fmt(s.best),
+        sd: fmt(s.sd), sdColor: s.sd === minSd ? GOOD : SECOND, sdWeight: s.sd === minSd ? '700' : '400',
+        gap: s.mean - bestMean < 1 ? '—' : '+' + fmt(s.mean - bestMean),
+        trend: trend10(s.slope),
+        trendColor: !trendFlat(s.slope) && s.slopeP !== null && s.slopeP < 0.05 ? (s.slope > 0 ? WARN : GOOD) : MUTED,
+        trendWeight: !trendFlat(s.slope) && s.slopeP !== null && s.slopeP < 0.05 ? '700' : '400',
+        ideal: fmt(s.driver.ideal),
+        n: s.n + '/' + s.total,
+        box: {
+          wLo: bx(s.lo).toFixed(1), wHi: bx(s.hi).toFixed(1),
+          q1: bx(s.q1).toFixed(1), iqrW: (bx(s.q3) - bx(s.q1)).toFixed(1),
+          med: bx(s.median).toFixed(1),
+          meanX: (bx(s.mean) - 4).toFixed(1), meanRot: 'rotate(45 ' + bx(s.mean).toFixed(1) + ' 13)',
+          fill: isSubject ? 'rgba(42,120,214,0.28)' : isRival ? 'rgba(235,104,52,0.26)' : 'rgba(11,11,11,0.07)',
+          stroke,
+          points: s.values.map((v) => ({ x: bx(v).toFixed(1), y: (13 + (jitter() - 0.5) * 13).toFixed(1), fill: stroke })),
+        },
+      }
+    })
+
+    // ---------- comparison
+    const a = sub.values, b = riv.values
+    const w = welch(a, b), mw = mannWhitney(a, b), ci = bootstrapCi(a, b)
+    const meanDelta = sub.mean - riv.mean
+    const medDelta = sub.median - riv.median
+    const cx = (ms) => 190 + Math.max(-185, Math.min(185, (ms / 900) * 175))
+
+    return {
+      subject: { name: subject.name }, rival: { name: rival.name },
+      sample: { used: String(all.reduce((s, x) => s + x.n, 0)), total: String(all.reduce((s, x) => s + x.total, 0)) },
+      exclusions,
+      countedNote: 'Исключено: стартовый, джокер, пит, медленные выбросы (медиана + 3 · 1.4826 · MAD).',
+      rows,
+      sortMean: () => this.setState({ ladder: 'mean' }),
+      sortMedian: () => this.setState({ ladder: 'median' }),
+      meanBg: ladderKey === 'mean' ? 'rgba(11,11,11,0.08)' : '#fcfcfb',
+      meanFg: ladderKey === 'mean' ? INK : SECOND,
+      medianBg: ladderKey === 'median' ? 'rgba(11,11,11,0.08)' : '#fcfcfb',
+      medianFg: ladderKey === 'median' ? INK : SECOND,
+      scaleLabel: fmt(bandMin, 1) + ' … ' + fmt(bandMax, 1) + ' с',
+      windowLabel: String(this.state.win),
+      windowOptions: [3, 5, 7].map((n) => ({
+        label: String(n), pick: () => this.setState({ win: n }),
+        bg: this.state.win === n ? 'rgba(11,11,11,0.08)' : '#fcfcfb',
+        fg: this.state.win === n ? INK : SECOND, weight: this.state.win === n ? '700' : '400',
+      })),
+      setAbsolute: () => this.setState({ rel: false }),
+      setDelta: () => this.setState({ rel: true }),
+      absBg: rel ? '#fcfcfb' : 'rgba(11,11,11,0.08)', absFg: rel ? SECOND : INK,
+      relBg: rel ? 'rgba(11,11,11,0.08)' : '#fcfcfb', relFg: rel ? INK : SECOND,
+      trendSentence: rel
+        ? 'Ноль — своя медиана: пилоты сравнимы по форме, а не по абсолютному темпу.'
+        : 'Пунктир — тренд ' + subject.name + '; метки внизу — исключённые круги.',
+      showTrend: this.props.showTrend !== false,
+      roll: {
+        lines, yTicks, events, labels, hasBase: rel, baseY: ry(0).toFixed(1),
+        trend: {
+          x1: rx(sub.counted[0].n).toFixed(1), y1: ry(fitAt(sub.counted[0].n)).toFixed(1),
+          x2: rx(sub.counted[sub.counted.length - 1].n).toFixed(1),
+          y2: ry(fitAt(sub.counted[sub.counted.length - 1].n)).toFixed(1),
+        },
+      },
+      columns: cols, statRows,
+      compare: {
+        nA: String(sub.n), nB: String(riv.n),
+        meanDelta: signed(meanDelta),
+        meanColor: meanDelta < 0 ? GOOD : meanDelta > 0 ? INK : SECOND,
+        ciX: Math.min(cx(ci.lo), cx(ci.hi)).toFixed(1),
+        ciW: Math.abs(cx(ci.hi) - cx(ci.lo)).toFixed(1),
+        pointX: cx(medDelta).toFixed(1),
+        ciNote: '95 % bootstrap-CI разности медиан: ' + signed(ci.lo) + ' … ' + signed(ci.hi) + ' с. '
+          + (ci.lo < 0 && ci.hi > 0 ? 'Ноль внутри — порядок одной гонкой не установлен.' : 'Ноль вне интервала — разница устойчива в этой гонке.'),
+        tiles: [
+          { label: 'разность медиан', value: signed(medDelta), color: medDelta < 0 ? GOOD : INK, hint: fmt(sub.median) + ' против ' + fmt(riv.median) },
+          { label: 'на дистанции', value: signed(meanDelta * Math.min(sub.n, riv.n), 2), color: INK, hint: 'за ' + Math.min(sub.n, riv.n) + ' зачётных кругов' },
+          { label: 'Welch t-test', value: 'p ' + fmtP(w.p), color: w.p !== null && w.p < 0.05 ? INK : MUTED, hint: 't = ' + w.t.toFixed(2) + ', df = ' + w.df.toFixed(1) },
+          { label: "Mann–Whitney / Cliff's δ", value: mw.cliff.toFixed(2), color: SECOND, hint: 'U = ' + mw.u.toFixed(0) + ', p ' + fmtP(mw.p) },
+        ],
+      },
+    }
+  }
+}
+</script>
+</body>
+</html>

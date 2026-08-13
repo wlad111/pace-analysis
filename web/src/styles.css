@@ -1,3 +1,6 @@
+/* Redesigned session screen; must stay first — @import is only valid before any rule. */
+@import './styles.redesign.css';
+
 /*
  * Design tokens and layout.
  *

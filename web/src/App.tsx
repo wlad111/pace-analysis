@@ -15,15 +15,16 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { EntryRow, SessionSummary } from './api'
 import { DEFAULT_FILTER } from './api'
 import { Card } from './components/Card'
-import { ComparePanel } from './components/ComparePanel'
 import { EventsPanel } from './components/EventsPanel'
-import type { BoxSeries } from './components/BoxPlot'
+import { CompareSummary } from './components/CompareSummary'
 import { ImportPanel } from './components/ImportPanel'
+import type { LadderMetric } from './components/PaceLadder'
+import { PaceLadder } from './components/PaceLadder'
+import { PaceMetricsTable } from './components/PaceMetricsTable'
 import { PaceExplorer } from './components/PaceExplorer'
-import { PaceTable } from './components/PaceTable'
 import { createDataSource } from './dataSource'
 import type { EventKind } from './events'
-import { buildEventModel, effectiveTagsOf } from './events'
+import { buildEventModel } from './events'
 import { usedLapsByDriver } from './metrics'
 import { formatDuration, formatGap, formatSessionDate } from './format'
 import { useAsync } from './hooks/useAsync'
@@ -41,8 +42,15 @@ function sessionLabel(session: SessionSummary): string {
   return session.code === null ? session.name : `${session.name} (${session.code})`
 }
 
+/**
+ * The timing system's own protocol, kept but folded away: its "Best lap" column
+ * is the joker lap for five drivers out of six, so on an open first screen it
+ * misinforms. It stays one click away because it is the official record.
+ */
 function ClassificationCard({ entries }: { entries: readonly EntryRow[] }) {
   return (
+    <details className="protocol">
+      <summary>Протокол гонки</summary>
     <Card
       title="Классификация"
       caption="Как прислал тайминг. Колонка «Лучший круг» — официальная: как правило, это джокер, а не темп."
@@ -84,6 +92,7 @@ function ClassificationCard({ entries }: { entries: readonly EntryRow[] }) {
         </div>
       )}
     </Card>
+    </details>
   )
 }
 
@@ -97,6 +106,9 @@ export function App() {
   const [sessionId, setSessionId] = useState<number | null>(null)
   const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set())
   const [pair, setPair] = useState<{ a: string; b: string } | null>(null)
+  const [ladderMetric, setLadderMetric] = useState<LadderMetric>('mean')
+  const [paceWindow, setPaceWindow] = useState(5)
+  const [relative, setRelative] = useState(false)
   // Bumped after a write (a lap tag, an import) to re-read everything derived.
   const [revision, setRevision] = useState(0)
   const [tagBusy, setTagBusy] = useState(false)
@@ -148,32 +160,6 @@ export function App() {
 
   const usedLaps = useMemo(() => usedLapsByDriver(stats.data?.drivers ?? null), [stats.data])
 
-  const compareBoxes = useMemo<BoxSeries[]>(() => {
-    if (pair === null) return []
-    return [pair.a, pair.b]
-      .map((name) => {
-        const colour = series.find((item) => item.name === name)?.color ?? ''
-        const used = usedLaps.get(name)
-        const points = laps
-          .filter((lap) => lap.driver === name && lap.time_ms !== null)
-          .map((lap) => {
-            const tags = effectiveTagsOf(lap)
-            return {
-              lap: lap.lap_number,
-              value: lap.time_ms as number,
-              tags,
-              // Before /stats arrives, fall back to the tag test rather than
-              // counting nothing — an empty box would read as "no data".
-              counted:
-                used === undefined
-                  ? !tags.some((tag) => tag === 'joker' || tag === 'pit')
-                  : used.has(lap.lap_number),
-            }
-          })
-        return { name, color: colour, points }
-      })
-      .filter((item) => item.points.length > 0)
-  }, [laps, series, pair, usedLaps])
 
   const mutateTag = useCallback((run: () => Promise<void>) => {
     setTagBusy(true)
@@ -230,6 +216,17 @@ export function App() {
     sessionId !== null && pair !== null && pair.a !== pair.b,
   )
 
+  // A row click picks the rival (B); A stays the page subject.
+  const pickRival = useCallback((driver: string) => {
+    setPair((current) =>
+      current === null || driver === current.a ? current : { ...current, b: driver },
+    )
+  }, [])
+
+  const swapPair = useCallback(() => {
+    setPair((current) => (current === null ? current : { a: current.b, b: current.a }))
+  }, [])
+
   const toggleDriver = useCallback((name: string) => {
     setHidden((current) => {
       const next = new Set(current)
@@ -258,6 +255,32 @@ export function App() {
                 } · ${current.club ?? ''}`}
           </div>
         </div>
+        {driverNames.length > 0 && (
+          <div className="field subject-picker">
+            <label htmlFor="subject-driver">Пилот A</label>
+            <select
+              id="subject-driver"
+              value={pair?.a ?? ''}
+              onChange={(event) => {
+                const next = event.target.value
+                setPair((current) => {
+                  if (current === null) return current
+                  // Picking the current rival as A swaps the pair instead of
+                  // leaving the same driver on both sides.
+                  return next === current.b
+                    ? { a: next, b: current.a }
+                    : { ...current, a: next }
+                })
+              }}
+            >
+              {driverNames.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         <div className="segmented" role="group" aria-label="Цветовая тема">
           {THEME_OPTIONS.map((option) => (
             <button
@@ -345,35 +368,57 @@ export function App() {
             </p>
           )}
 
-          <PaceExplorer
-            laps={laps}
-            series={series}
-            hidden={hidden}
-            onToggle={toggleDriver}
-            onShowAll={showAll}
-            madK={filter.mad_k}
-            usedLaps={usedLaps}
-            eventsByLapId={eventModel.byLapId}
-            mode={theme.mode}
-            stale={detail.loading}
-          />
+          <div className="session-grid">
+            <PaceLadder
+              rows={stats.data?.drivers ?? []}
+              subject={pair?.a ?? ''}
+              rival={pair?.b ?? ''}
+              metric={ladderMetric}
+              onMetric={setLadderMetric}
+              onPick={pickRival}
+              stale={stats.loading}
+            />
 
-          <PaceTable rows={stats.data?.drivers ?? []} series={series} stale={stats.loading} />
+            <CompareSummary
+              comparison={comparison.data}
+              error={comparison.error}
+              onSwap={swapPair}
+              stale={comparison.loading}
+            />
 
-          <ComparePanel
-            drivers={driverNames}
-            driverA={pair?.a ?? ''}
-            driverB={pair?.b ?? ''}
-            onChange={(a, b) => {
-              setPair({ a, b })
-            }}
-            comparison={comparison.data}
-            error={comparison.error}
-            boxes={compareBoxes}
-            mode={theme.mode}
-            stale={comparison.loading}
-          />
+            <div className="full">
+              <PaceExplorer
+                laps={laps}
+                series={series}
+                hidden={hidden}
+                onToggle={toggleDriver}
+                onShowAll={showAll}
+                usedLaps={usedLaps}
+                statRows={stats.data?.drivers ?? []}
+                subject={pair?.a ?? ''}
+                rival={pair?.b ?? ''}
+                window={paceWindow}
+                onWindow={setPaceWindow}
+                relative={relative}
+                onRelative={setRelative}
+                mode={theme.mode}
+                stale={detail.loading}
+              />
+            </div>
 
+            <div className="full">
+              <PaceMetricsTable
+                rows={stats.data?.drivers ?? []}
+                subject={pair?.a ?? ''}
+                rival={pair?.b ?? ''}
+                onPick={pickRival}
+                stale={stats.loading}
+              />
+            </div>
+          </div>
+
+          <details className="protocol">
+            <summary>Джокеры и питы — разметка кругов</summary>
           <EventsPanel
             model={eventModel}
             config={events.data?.config ?? null}
@@ -384,6 +429,7 @@ export function App() {
             onUntag={onUntag}
             stale={detail.loading || events.loading}
           />
+          </details>
         </div>
       </div>
     </div>
