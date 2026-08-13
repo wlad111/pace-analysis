@@ -45,9 +45,11 @@ services:
       api:
         condition: service_healthy
     environment:
-      # Empty -> plain HTTP on :80. Set to a hostname and Caddy issues and
-      # renews a certificate by itself.
-      SITE_ADDRESS: ${SITE_ADDRESS:-}
+      # Compose substitutes ":80" when the variable is unset *or empty*, which
+      # Caddy's own {$SITE_ADDRESS::80} does not: its default applies only to an
+      # undefined variable, and an empty one collapses the site address into a
+      # second keyless block that Caddy refuses to parse.
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
     ports:
       - "80:80"
       - "443:443"
