@@ -130,7 +130,8 @@ def run_cli(*args: str, database: Path) -> subprocess.CompletedProcess[str]:
 def test_health_on_empty_database(client: TestClient) -> None:
     response = client.get("/api/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok", "sessions": 0}
+    # `read_only` rides along so the frontend can hide controls it cannot use.
+    assert response.json() == {"status": "ok", "sessions": 0, "read_only": False}
 
 
 def test_import_creates_one_session(client: TestClient, session_id: int) -> None:
@@ -683,3 +684,67 @@ def test_cli_rejects_an_impossible_session_id_without_a_traceback(tmp_path: Path
         output = result.stderr + result.stdout
         assert "Traceback" not in output
         assert "OverflowError" not in output
+
+
+# --------------------------------------------------------------------------- #
+# Read-only deployments
+# --------------------------------------------------------------------------- #
+
+
+class TestReadOnlyMode:
+    """`$PACE_READ_ONLY` is what makes a public deployment safe to expose.
+
+    Hiding the controls in the browser is not a control: the API answers curl
+    whatever the page renders. These tests pin the server-side behaviour.
+    """
+
+    WRITES = (
+        ("post", "/api/sessions/1/events/detect", None),
+        ("post", "/api/laps/1/tags", {"tag": "pit"}),
+        ("delete", "/api/laps/1/tags/pit", None),
+    )
+
+    def test_writes_are_reachable_by_default(self, client: TestClient) -> None:
+        # The point of the flag is that it changes something: without it every
+        # write path exists and answers (200/204/404-on-missing-row, never 405).
+        app = client.app
+        methods = {
+            (method, route.path)
+            for route in app.routes
+            if (method := next(iter(route.methods - {"HEAD", "OPTIONS", "GET"}), None))
+        }
+        assert ("POST", "/api/imports") in methods
+        assert ("POST", "/api/laps/{lap_id}/tags") in methods
+        assert ("DELETE", "/api/laps/{lap_id}/tags/{tag}") in methods
+
+    def test_read_only_removes_every_write_route(self, monkeypatch, tmp_path) -> None:
+        monkeypatch.setenv("PACE_READ_ONLY", "1")
+        monkeypatch.setenv("PACE_DB", str(tmp_path / "ro.db"))
+        from karting.api.app import create_app
+
+        app = create_app()
+        writes = [
+            route.path
+            for route in app.routes
+            if getattr(route, "methods", set()) - {"GET", "HEAD", "OPTIONS"}
+        ]
+        assert writes == []
+
+        with TestClient(app) as ro:
+            assert ro.get("/api/health").json()["read_only"] is True
+            assert ro.get("/api/sessions").status_code == 200
+            for method, path, payload in self.WRITES:
+                response = getattr(ro, method)(path, **({"json": payload} if payload else {}))
+                assert response.status_code == 404, f"{method} {path} still reachable"
+            files = {"files": ("x.eml", b"nope", "message/rfc822")}
+            assert ro.post("/api/imports", files=files).status_code == 404
+
+    def test_the_flag_accepts_the_usual_spellings(self, monkeypatch) -> None:
+        from karting.api.app import read_only
+
+        for value in ("1", "true", "TRUE", "yes", "on"):
+            monkeypatch.setenv("PACE_READ_ONLY", value)
+            assert read_only() is True
+        for value in ("", "0", "false", "no", "off", "maybe"):
+            monkeypatch.setenv("PACE_READ_ONLY", value)
+            assert read_only() is False

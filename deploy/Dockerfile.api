@@ -1,0 +1,40 @@
+# Pace Analysis API.
+#
+# Python 3.12 to match what the project is developed and tested on (Ubuntu
+# 24.04 ships the same). Slim rather than alpine: numpy and scipy publish
+# manylinux wheels but not musl ones, and building scipy from source on the
+# server would take twenty minutes and 2 GB of RAM.
+FROM python:3.12-slim AS runtime
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PACE_DB=/data/pace.db
+
+WORKDIR /srv
+
+# lxml needs libxml2/libxslt at runtime; curl is the container healthcheck.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libxml2 libxslt1.1 curl \
+ && rm -rf /var/lib/apt/lists/*
+
+# Dependencies first: this layer only rebuilds when pyproject.toml changes,
+# and it is the slow one (scipy is 117 MB).
+COPY pyproject.toml README.md ./
+COPY karting ./karting
+RUN pip install --no-cache-dir .
+
+# The importer writes raw email copies next to the database.
+RUN mkdir -p /data/raw_emails && useradd --system --uid 10001 pace \
+ && chown -R pace:pace /data /srv
+USER pace
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD curl -fsS http://127.0.0.1:8000/api/health || exit 1
+
+# One worker on purpose: the storage layer serialises writes with an in-process
+# lock, which protects nothing across processes, and SQLite wants a single
+# writer. At 31 ms for the heaviest request one worker carries ~30 req/s.
+CMD ["uvicorn", "karting.api.app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

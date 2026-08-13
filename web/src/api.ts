@@ -463,6 +463,18 @@ export function getTags(signal?: AbortSignal): Promise<TagOption[]> {
   return request<TagOption[]>('/tags', { signal })
 }
 
+/** `GET /api/health`: liveness, session count, and whether writes are off. */
+export interface HealthResponse {
+  status: string
+  sessions: number
+  /** True on a public read-only deployment: imports and tagging are not served. */
+  read_only?: boolean
+}
+
+export function getHealth(signal?: AbortSignal): Promise<HealthResponse> {
+  return request<HealthResponse>('/health', { signal })
+}
+
 export function getRankings(id: number, signal?: AbortSignal): Promise<RankingsResponse> {
   return request<RankingsResponse>(`/sessions/${id}/rankings`, { signal })
 }

@@ -1,0 +1,65 @@
+# Pace Analysis, two services: uvicorn behind Caddy.
+#
+# Run from the repository root:
+#   docker compose -f deploy/compose.yaml --env-file deploy/.env up -d --build
+
+name: pace-analysis
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    restart: unless-stopped
+    environment:
+      PACE_DB: /data/pace.db
+      # Writes are off by default. Turning them on without putting an
+      # authenticated proxy in front means anyone who finds the host can import
+      # emails and retag laps — the API does not ask who is calling.
+      PACE_READ_ONLY: ${PACE_READ_ONLY:-1}
+    volumes:
+      - pace-data:/data
+    # No published ports: the API is reachable only through Caddy, on the
+    # compose network. Nothing binds 8000 on the host.
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          # Measured: 133 MB resident, 184 MB peak. The cap turns a runaway
+          # request into a restart instead of an out-of-memory server.
+          memory: 1g
+
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      # Empty -> plain HTTP on :80. Set to a hostname and Caddy issues and
+      # renews a certificate by itself.
+      SITE_ADDRESS: ${SITE_ADDRESS:-}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  # The database and the raw email copies: the only state worth backing up.
+  pace-data:
+  # Certificates and OCSP staples. Losing this volume means re-issuing certs,
+  # and Let's Encrypt rate-limits that, so keep it.
+  caddy-data:
+  caddy-config:

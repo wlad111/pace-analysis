@@ -707,6 +707,23 @@ def database_path() -> str:
     return os.environ.get("PACE_DB", "").strip() or DEFAULT_DB_PATH
 
 
+#: Values of ``$PACE_READ_ONLY`` that mean "serve reads only".
+_TRUTHY: Final[frozenset[str]] = frozenset({"1", "true", "yes", "on"})
+
+
+def read_only() -> bool:
+    """Whether the write endpoints are switched off (``$PACE_READ_ONLY``).
+
+    Read-only is enforced by *not registering* the routes, so an import or a
+    tag write answers 404 rather than 403: a public deployment should not even
+    advertise a surface it will refuse.  Hiding the buttons in the browser is
+    not a control -- the API is reachable with curl no matter what the page
+    renders -- so this flag, not the frontend, is what makes a deployment safe
+    to expose.
+    """
+    return os.environ.get("PACE_READ_ONLY", "").strip().casefold() in _TRUTHY
+
+
 def open_database(path: str | None = None) -> Database:
     """Open the database, creating the parent directory when needed."""
     target = path or database_path()
@@ -961,8 +978,10 @@ def _register_routes(application: FastAPI) -> None:
 
     @application.get("/api/health", response_model=HealthResponse, tags=["meta"])
     def health(db: DbDep) -> HealthResponse:
-        """Liveness probe plus the number of stored sessions."""
-        return HealthResponse(status="ok", sessions=len(db.list_sessions()))
+        """Liveness probe, session count, and whether writes are switched off."""
+        return HealthResponse(
+            status="ok", sessions=len(db.list_sessions()), read_only=read_only()
+        )
 
     @application.get("/api/tags", response_model=list[TagOption], tags=["tags"])
     def tags() -> list[TagOption]:
@@ -1019,6 +1038,11 @@ def _register_routes(application: FastAPI) -> None:
         """
         _session_or_404(db, session_id)
         return _event_report_or_error(db, session_id, thresholds, persist=False)
+
+    # Everything below writes. In read-only mode the routes are never attached,
+    # so the paths simply do not exist (404) instead of existing-but-refusing.
+    if read_only():
+        return
 
     @application.post(
         "/api/sessions/{session_id}/events/detect",

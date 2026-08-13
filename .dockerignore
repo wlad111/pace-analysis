@@ -1,0 +1,16 @@
+# The build context is sent to the daemon in full; without this it carries
+# 460 MB of environments that the images rebuild anyway.
+.venv/
+web/node_modules/
+web/dist/
+node_modules/
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+.ruff_cache/
+.git/
+data/
+design_handoff_session_redesign/prototype/
+*.db
+*.db-wal
+*.db-shm

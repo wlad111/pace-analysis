@@ -42,6 +42,13 @@ class HealthResponse(BaseModel):
 
     status: Literal["ok"] = "ok"
     sessions: int = Field(ge=0, description="Number of sessions stored in the database")
+    read_only: bool = Field(
+        default=False,
+        description=(
+            "True when the deployment serves reads only: imports and lap tagging are "
+            "not registered and answer 404. The frontend uses this to hide the controls."
+        ),
+    )
 
 
 class TagOption(BaseModel):

@@ -13,7 +13,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import type { EntryRow, SessionSummary } from './api'
-import { DEFAULT_FILTER } from './api'
+import { DEFAULT_FILTER, getHealth } from './api'
 import { Card } from './components/Card'
 import { EventsPanel } from './components/EventsPanel'
 import { CompareSummary } from './components/CompareSummary'
@@ -142,6 +142,11 @@ export function App() {
     [source, sessionId, filter, revision],
     sessionId !== null,
   )
+  // A read-only deployment serves no write routes at all, so the controls that
+  // call them are hidden rather than left to fail with a 404.
+  const health = useAsync((signal) => getHealth(signal), [revision], !offline)
+  const readOnly = offline || health.data?.read_only === true
+
   const events = useAsync(
     (signal) => source.getEvents(sessionId as number, signal),
     [source, sessionId, revision],
@@ -352,11 +357,13 @@ export function App() {
             )}
           </Card>
 
-          <ImportPanel
-            onUpload={source.uploadEmails}
-            onImported={onImported}
-            offline={offline}
-          />
+          {!readOnly && (
+            <ImportPanel
+              onUpload={source.uploadEmails}
+              onImported={onImported}
+              offline={offline}
+            />
+          )}
 
           <ClassificationCard entries={entries} />
         </div>
@@ -423,7 +430,7 @@ export function App() {
             model={eventModel}
             config={events.data?.config ?? null}
             busy={tagBusy}
-            readOnly={offline}
+            readOnly={readOnly}
             error={tagError ?? events.error}
             onTag={onTag}
             onUntag={onUntag}

@@ -1,0 +1,39 @@
+# Caddy serves the dashboard and proxies /api to uvicorn.
+#
+# {$SITE_ADDRESS::80} — set SITE_ADDRESS to a hostname and Caddy obtains and
+# renews a Let's Encrypt certificate on its own; leave it unset and the site
+# answers plain HTTP on :80, which is what you want while testing by IP.
+{$SITE_ADDRESS::80} {
+	encode zstd gzip
+
+	# Same origin as the page, so no CORS is involved at all.
+	handle /api/* {
+		# A read-only deployment (PACE_READ_ONLY=1) does not register the write
+		# routes, so they answer 404 already. Refusing the methods here too is
+		# belt and braces: if the flag is ever cleared by accident, the write
+		# surface still does not open to the internet by itself.
+		@writes method POST PUT PATCH DELETE
+		respond @writes "This deployment is read-only." 405
+
+		reverse_proxy api:8000
+	}
+
+	handle {
+		root * /srv/www
+		# Single-page app: unknown paths fall back to index.html.
+		try_files {path} /index.html
+		file_server
+	}
+
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	log {
+		output stdout
+		format console
+	}
+}
