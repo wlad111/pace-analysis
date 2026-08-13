@@ -3,6 +3,14 @@
 # {$SITE_ADDRESS::80} — set SITE_ADDRESS to a hostname and Caddy obtains and
 # renews a Let's Encrypt certificate on its own; leave it unset and the site
 # answers plain HTTP on :80, which is what you want while testing by IP.
+# A Caddyfile that opens with `{` is read as the global options block, and the
+# site address placeholder starts with exactly that. Declaring the global block
+# explicitly consumes the ambiguity, and switching the admin API off is worth
+# doing anyway on a public host.
+{
+	admin off
+}
+
 {$SITE_ADDRESS::80} {
 	encode zstd gzip
 
