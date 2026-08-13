@@ -1,0 +1,983 @@
+Delivered-To: driver@example.com
+Received: by 2002:a05:6358:3a26:b0:2ab:f8dc:8d5a with SMTP id g38csp3890357rwe;
+        Mon, 3 Aug 2026 11:52:31 -0700 (PDT)
+X-Received: by 2002:a05:6000:e0d:b0:47e:8e8a:43f5 with SMTP id ffacd0b85a97d-47fd72a8d02mr22119641f8f.20.1785783150718;
+        Mon, 03 Aug 2026 11:52:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785783150; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n1CCh5JYcvKVgV274d2IDL+4pqTq7kFeWr6Vzi0+Uqo8Ie39rJqFOgw/is6hse+x96
+         zdqPlf4dDaTtci12lkSmT0oe4EN5rQ6sdI7X8dAobzbe0Ey7JzILZ2taoUQcSAgxsY55
+         ZfnLE8fqornhBCukdgk7ZEcng6uCPgSoaPR/YDsDYsWGrkYdbLkwU00P6ff2NabYWZ4+
+         GBB3D2oGBGz+o8dE7KMuuadYZtSQmxwdt8ZuhRGCNW3rf1BFsIolsT2QaJIxoUMYj9Z4
+         G1xpClQ6ncJ3+CZAWX/phIFWJdwEZ1b8h/aC02AlfOE/7SJgBEUdWBQDZx7q/1Jnj9ac
+         VXng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-disposition:content-transfer-encoding:apex-id:subject:date
+         :reply-to:mime-version:to:from:message-id;
+        bh=JCfrjArQPHvEGbMlElsYmuYPuXQh24CEmMNptZzwYzs=;
+        fh=0WyYz/R8po3CHo9u4hdATcgwL8pj9JXkVm5AVf7V+NI=;
+        b=VLnVElGkA0c6UzMBwuJxcDp5gvdYvFxBh81nEyfDsnQiSfhNir+31zQuWuHWqoevcQ
+         hQWcda0uSW0d418BQ3mG8t+PFuYrv9jOlC0bsPXmShqz6PmCMeGPmHqfhY8wHGxieh86
+         oGw515tb88sPFbEOuIJ96TraRYvN8asfxna3yNBk5AJIAaACPKJnfFTLCDh7Tj2pKuqA
+         Bm0mZEllLHM99UcFilSNlyK1LLSMCtN46YZNR8G0iyeRnjzynk/L91JVwNVMIqDvNIZM
+         45CCbBr7xpOLALVSAZBpBxuNGu9ofPenK/f8qll0/Lbdg2+KHIObKOrx98tEL5NrmG+h
+         80GQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of returnpath@apex-timing.com designates 46.31.194.62 as permitted sender) smtp.mailfrom=returnpath@apex-timing.com
+Return-Path: <returnpath@apex-timing.com>
+Received: from smtp6.apex-timing.com (smtp6.apex-timing.com. [46.31.194.62])
+        by mx.google.com with ESMTP id ffacd0b85a97d-47fd41dca12si19542031f8f.11.2026.08.03.11.52.30
+        for <driver@example.com>;
+        Mon, 03 Aug 2026 11:52:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of returnpath@apex-timing.com designates 46.31.194.62 as permitted sender) client-ip=46.31.194.62;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of returnpath@apex-timing.com designates 46.31.194.62 as permitted sender) smtp.mailfrom=returnpath@apex-timing.com
+Message-ID: <6a70e36e.4d29c541.283f17.7b1eSMTPIN_ADDED_MISSING@mx.google.com>
+Received: from WIN-C8JSTGAIEL7 (unknown [141.95.105.108])
+	by smtp1.apex-timing.com (Postfix) with ESMTPA id 39A75111C6C4
+	for <driver@example.com>; Mon,  3 Aug 2026 20:52:30 +0200 (CEST)
+From: "PRIMO KARTING" <info@primokarting.ru>
+To: "WLAD111" <driver@example.com>
+MIME-Version: 1.0
+Reply-To: info@primokarting.ru
+Date: Mon, 3 Aug 2026 20:52:30 +0200
+Subject: PRIMO KARTING =?UTF-8?Q?:=C2=A0PRIMO?= GARA - Final A
+ =?UTF-8?Q?(FA)=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2?=
+ =?UTF-8?Q?=80=8B?=
+Apex-Id: gokarts-51-10001-1000001-A
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+<!DOCTYPE HTML>
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; ch=
+arset=3Dutf-8"></head>
+<body style=3D"background-color:rgb(255, 255, 255); color:rgb(51, 51, =
+51); margin:0px; padding:0px; padding-top:40px; padding-bottom:70px; f=
+ont-size:14px; font-family: 'Open Sans', sans-serif;"><style type=3D"t=
+ext/css">html,body{ background-color:rgb(255, 255, 255); }table,tr,td{=
+ border-collapse:collapse; border-spacing:0; }li{ font-size:14px }p{ m=
+argin:0px; padding:0px; font-size:14px; line-height:normal; }h1,h2,h3,=
+h4,h5{ margin:0px; padding:0px; font-weight:normal; font-size: 2em; li=
+ne-height:1.1; }h1{ font-size: 26px; }h2{ font-size: 24px; }h3{ font-s=
+ize: 22px; }h4{ font-size: 20px; }h5{ font-size: 18px; }h5{ font-size:=
+ 16px; }span{ display: inline; }a{ color: inherit; }</style><table sty=
+le=3D"width:100%; border-collapse:collapse; border-spacing:0; font-siz=
+e:14px;"><tr><td style=3D"text-align:center; padding: 0px;"><div style=
+=3D"width:900px; margin-left:auto; margin-right:auto; display:inline-b=
+lock; text-align:left; font-family: 'Open Sans', sans-serif; backgroun=
+d-color:rgb(255, 255, 255);"><table style=3D"width:100%;background-col=
+or:rgb(81, 81, 81);color:rgb(255, 255, 255);border-collapse:collapse; =
+border-spacing:0;"><tbody><tr><td style=3D"vertical-align:top;padding:=
+0px;width:331px;max-width:331px;" ><div style=3D"font-size:0px;padding=
+:12px; padding-left:14px; padding-right:14px;"><img style=3D"width:225=
+px;font-size: initial;" src=3D"http://www.apex-timing.com/gokarts/medi=
+a/center051/gallery/logo.png" alt=3D"PRIMO KARTING" ></div></td><td st=
+yle=3D"vertical-align:top;padding:0px;width:267px;max-width:267px;" ><=
+div style=3D"word-wrap:break-word;padding:10px;padding-left:14px;paddi=
+ng-right:14px;"><p style=3D"text-align: center;">&nbsp;</p>
+
+<p style=3D"text-align: center;"><img alt=3D"" shrinktofit=3D"true" sr=
+c=3D"http://www.apex-timing.com/client-area/email/images/phone.png" st=
+yle=3D"width: 22px; height: 16px;" /><span style=3D"font-size:12px;"><=
+span style=3D"font-size:15px;">&nbsp; +78129312025</span></span><br />=
+
+<span style=3D"font-size:15px;"><a href=3D"http://www.primokarting.ru"=
+ target=3D"_blank">www.primokarting.ru</a></span></p>
+</div></td><td style=3D"vertical-align:top;padding:0px;width:299px;max=
+-width:299px;" ><div style=3D"word-wrap:break-word;padding:10px;paddin=
+g-left:14px;padding-right:14px;"><p style=3D"text-align: center;"><a h=
+ref=3D"https://fr-fr.facebook.com/primokarting/" target=3D"_blank"><im=
+g alt=3D"" height=3D"53" src=3D"http://www.apex-timing.com/client-area=
+/email/images/facebook_button.jpeg" width=3D"70" /></a></p>
+
+<p style=3D"text-align: center;">Join us on Facebook</p>
+</div></td></tr></tbody></table><table style=3D"width:100%;background-=
+color:transparent;color:rgb(51, 51, 51);border-collapse:collapse; bord=
+er-spacing:0;"><tbody><tr><td style=3D"vertical-align:top;padding:0px;=
+width:898px;max-width:898px;" ><div style=3D"font-size:0px;"><img styl=
+e=3D"width:100%;" src=3D"http://www.apex-timing.com/client-area/email/=
+images/damebrett.jpeg" alt=3D"" ></div></td></tr></tbody></table><tabl=
+e style=3D"width:100%;background-color:rgb(238, 238, 238);color:rgb(0,=
+ 0, 0);border-collapse:collapse; border-spacing:0;"><tbody><tr><td sty=
+le=3D"vertical-align:top;padding:0px;width:898px;max-width:898px;" ><d=
+iv style=3D"word-wrap:break-word;padding:10px;padding-left:14px;paddin=
+g-right:14px;"><p><strong>Hello WLAD111, your results !</strong></p>
+</div></td></tr></tbody></table><table style=3D"width:100%;background-=
+color:transparent;color:rgb(51, 51, 51);border-collapse:collapse; bord=
+er-spacing:0;"><tbody><tr><td style=3D"vertical-align:top;padding:0px;=
+width:898px;max-width:898px;" ><div style=3D"padding:12px; padding-lef=
+t:14px; padding-right:14px;"><table style=3D"width: 100%; border-colla=
+pse: collapse; font-weight: bold; background-color: #515151; color: #F=
+FFFFF; height: 26px;"><tr><td style=3D"padding: 6px; text-align: cente=
+r; height: inherit;">PRIMO GARA - Final A (FA) - 03.08.2026 =C3=A0 21:=
+40 (Karting track)</td></tr></table><table style=3D"border-collapse: c=
+ollapse; border-spacing: 0px; width: 100%; text-shadow: 1px 1px rgba(0=
+,0,0,0.75);"><tbody><tr><td style=3D"padding: 0px;"><table style=3D"bo=
+rder-collapse: collapse; border-spacing: 0px; text-align: center; max-=
+width: 580px; min-width: 470px; width: 100%; font-family: sans-serif; =
+margin-left: auto; margin-right: auto;"><tbody><tr><td style=3D"paddin=
+g:0px; width: 185px; vertical-align: bottom;"><div style=3D"height: 65=
+px;"></div><div><img alt=3D"" style=3D"width: 80%; margin-bottom: 6px;=
+ margin-top: 8px;" src=3D"https://www.apex-timing.com/gokarts/images/m=
+ember_photo_adult_1.png"></div><table style=3D"border-collapse: collap=
+se; border-spacing: 0px; background-color: #EEEEEE; width: 100%; min-h=
+eight: 120px;"><tbody style=3D"background-color: rgba(0, 0, 0, 0.21);"=
+><tr style=3D"height: 5px; background-color: #fff; opacity: 0.15"><td =
+style=3D"width: 28px;"></td><td></td><td style=3D"width: 28px; backgro=
+und-color: #000; opacity: 0.20"></td></tr><tr><td></td><td><div style=3D=
+"text-align:center; color:#a5abc1; font-size: 60px; height: 70px; marg=
+in-top: 4px;">2</div></td><td style=3D"background-color: #000; opacity=
+: 0.20"></td></tr><tr><td></td><td><div style=3D"text-align:center; co=
+lor:#a5abc1; font-weight: bold; margin-bottom: 4px; padding: 0px 2px">=
+WLAD111</div></td><td style=3D"background-color: #000; opacity: 0.20">=
+</td></tr><tr><td></td><td></td><td style=3D"background-color: #000; o=
+pacity: 0.20"></td></tr><tr style=3D"background-color: #000000; opacit=
+y: 0.13; height: 4px;"><td></td><td></td><td style=3D"background-color=
+: #000; opacity: 0.20"></td></tr></tbody></table></td><td style=3D"pad=
+ding:0px; width: 200px; color: #fed413; vertical-align: bottom;"><div>=
+<img alt=3D"" style=3D"width: 85%; margin-bottom: 6px;" src=3D"https:/=
+/www.apex-timing.com/gokarts/images/member_photo_adult_1.png"></div><t=
+able style=3D"border-collapse: collapse; border-spacing: 0px; backgrou=
+nd-color: #EEEEEE; width: 100%; min-height: 176px;"><tbody><tr style=3D=
+"height: 5px; background-color: #fff; opacity: 0.15"><td style=3D"widt=
+h: 2px;"></td><td></td><td style=3D"width: 2px; min-width: 2px; backgr=
+ound-color: #000; opacity: 0.10"></td></tr><tr><td></td><td style=3D"h=
+eight: 26px;"><div style=3D"color:#fed413; text-align:center; font-siz=
+e: 75px;">1</div></td><td style=3D"background-color: #000; opacity: 0.=
+10"></td></tr><tr><td></td><td style=3D"height: 26px;"><div style=3D"c=
+olor:#fed413; text-align:center; font-weight: bold; font-size: 22px; p=
+adding: 0px 2px">KOLYA11</div></td><td style=3D"background-color: #000=
+; opacity: 0.10"></td></tr><tr><td></td><td></td><td style=3D"backgrou=
+nd-color: #000; opacity: 0.10"></td></tr><tr style=3D"background-color=
+: #000000; opacity: 0.13; height: 4px;"><td></td><td></td><td style=3D=
+"background-color: #000; opacity: 0.10"></td></tr></tbody></table></td=
+><td style=3D"padding:0px; width: 175px; color: #e9a35b; vertical-alig=
+n: bottom;"><div style=3D"height: 100px;"></div><div><img alt=3D"" sty=
+le=3D"width: 75%; margin-bottom: 6px; margin-top: 15px;" src=3D"https:=
+//www.apex-timing.com/gokarts/images/member_photo_adult_1.png"></div><=
+table style=3D"border-collapse: collapse; border-spacing: 0px; backgro=
+und-color: #EEEEEE; width: 100%; min-height: 91px;"><tbody style=3D"ba=
+ckground-color: rgba(0, 0, 0, 0.21);"><tr style=3D"height: 5px; backgr=
+ound-color: #fff; opacity: 0.15"><td style=3D"width: 28px; background-=
+color: #000; opacity: 0.20"></td><td></td><td style=3D"width: 20px;"><=
+/td><td style=3D"width: 2px; min-width: 2px; background-color: #000; o=
+pacity: 0.10"></td></tr><tr><td style=3D"background-color: #000; opaci=
+ty: 0.20"></td><td><div style=3D"color: #e9a35b; text-align:center; fo=
+nt-size: 60px; height: 70px; margin-top: 4px;">3</div></td><td style=3D=
+"width: 20px;"></td><td style=3D"background-color: #000; opacity: 0.10=
+"></td></tr><tr><td style=3D"background-color: #000; opacity: 0.20"></=
+td><td><div style=3D"color: #e9a35b; text-align:center; font-weight: b=
+old; margin-bottom: 4px; padding: 0px 2px">TWG</div></td><td style=3D"=
+width: 20px;"></td><td style=3D"background-color: #000; opacity: 0.10"=
+></td></tr><tr><td style=3D"background-color: #000; opacity: 0.20"></t=
+d><td></td><td style=3D"width: 20px;"></td><td style=3D"background-col=
+or: #000; opacity: 0.10"></td></tr><tr style=3D"background-color: #000=
+000; opacity: 0.13; height: 4px;"><td style=3D"background-color: #000;=
+ opacity: 0.20"></td><td></td><td style=3D"width: 20px;"></td><td styl=
+e=3D"background-color: #000; opacity: 0.10"></td></tr></tbody></table>=
+</td></tr></tbody></table></td></tr><tr style=3D"background-color: #EE=
+EEEE;"><td style=3D"padding: 0px;"><div style=3D"height: 16px; backgro=
+und-color: #fff; opacity: 0.16;"></div><div style=3D"height: 5px; back=
+ground-color: #000; opacity: 0.25;"></div></td></tr></tbody></table></=
+div></td></tr></tbody></table><table style=3D"width:100%;background-co=
+lor:transparent;color:rgb(51, 51, 51);border-collapse:collapse; border=
+-spacing:0;"><tbody><tr><td style=3D"vertical-align:top;padding:0px;wi=
+dth:898px;max-width:898px;" ><div style=3D"padding:12px; padding-left:=
+14px; padding-right:14px;"><table style=3D"width:100%;border-collapse:=
+collapse;line-height:18px;color:inherit;text-align:center;cursor:defau=
+lt;"><thead style=3D"font-size:12px;"><tr style=3D"height:24px; font-w=
+eight:bold;"><th style=3D"background-color:#FF0000; color:#FFFFFF;widt=
+h:32px;padding-left:4px; padding-right:4px;">Rnk</th><th style=3D"back=
+ground-color:#EEEEEE; color:#000000;width:42px;padding-left:4px; paddi=
+ng-right:4px;">Kart</th><th style=3D"background-color:#EEEEEE; color:#=
+000000;padding-left:4px; padding-right:4px;text-align:left">Driver</th=
+><th style=3D"background-color:#EEEEEE; color:#000000;padding-left:4px=
+; padding-right:4px;">Laps</th><th style=3D"background-color:#FF0000; =
+color:#FFFFFF;width:100px;padding-left:4px; padding-right:4px;">Gap</t=
+h><th style=3D"background-color:#EEEEEE; color:#000000;width:100px;pad=
+ding-left:4px; padding-right:4px;">Best lap</th></tr></thead><tbody st=
+yle=3D"font-size:12px;"><tr style=3D"height:2px; background-color:tran=
+sparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"wi=
+dth:32px;background-color:#515151;color:#FFFFFF;font-weight:bold;backg=
+round-color:#FED413; color:#000; font-weight:bold; font-size:14px; pad=
+ding-left:6px; padding-right:6px;">1</td><td style=3D"width:42px;backg=
+round-color:#C0C0C0;color:#000000;padding-left:6px; padding-right:6px;=
+"><div style=3D"height:20px; line-height:18px; background-color:#FF000=
+0; color:#FFFFFF;"><p style=3D"font-weight:bold; padding-left:4px; pad=
+ding-right:4px; margin:0px;">11</p></div></td><td style=3D"text-align:=
+left;background-color:#C0C0C0;color:#000000;padding-left:6px; padding-=
+right:4px; white-space:nowrap;"><span class=3D"m" style=3D"font-weight=
+: bold;">KOLYA11</span></td><td style=3D"background-color:#C0C0C0;colo=
+r:#000000;">20</td><td style=3D"width:100px;background-color:#515151;c=
+olor:#FFFFFF;font-weight:bold;"></td><td style=3D"width:100px;backgrou=
+nd-color:#C0C0C0;color:#000000;">26.012</td></tr><tr style=3D"height:2=
+px; background-color:transparent;"></tr><tr class=3D"tr" style=3D"heig=
+ht:28px;"><td style=3D"width:32px;background-color:#515151;color:#FFFF=
+FF;font-weight:bold;background-color:#A5ABC1; color:#000; font-weight:=
+bold; font-size:14px; padding-left:6px; padding-right:6px;">2</td><td =
+style=3D"width:42px;background-color:#515151;color:#FFFFFF;padding-lef=
+t:6px; padding-right:6px;"><div style=3D"height:20px; line-height:18px=
+; background-color:#FF0000; color:#FFFFFF;"><p style=3D"font-weight:bo=
+ld; padding-left:4px; padding-right:4px; margin:0px;">2</p></div></td>=
+<td style=3D"text-align:left;background-color:#515151;color:#FFFFFF;pa=
+dding-left:6px; padding-right:4px; white-space:nowrap;"><span class=3D=
+"m" style=3D"font-weight: bold;">WLAD111</span></td><td style=3D"backg=
+round-color:#515151;color:#FFFFFF;">20</td><td style=3D"width:100px;ba=
+ckground-color:#515151;color:#FFFFFF;font-weight:bold;">2.022</td><td =
+style=3D"width:100px;background-color:#515151;color:#FFFFFF;">26.788</=
+td></tr><tr style=3D"height:2px; background-color:transparent;"></tr><=
+tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;backgro=
+und-color:#515151;color:#FFFFFF;font-weight:bold;background-color:#E9A=
+35B; color:#000; font-weight:bold; font-size:14px; padding-left:6px; p=
+adding-right:6px;">3</td><td style=3D"width:42px;background-color:#C0C=
+0C0;color:#000000;padding-left:6px; padding-right:6px;"><div style=3D"=
+height:20px; line-height:18px; background-color:#FF0000; color:#FFFFFF=
+;"><p style=3D"font-weight:bold; padding-left:4px; padding-right:4px; =
+margin:0px;">4</p></div></td><td style=3D"text-align:left;background-c=
+olor:#C0C0C0;color:#000000;padding-left:6px; padding-right:4px; white-=
+space:nowrap;"><span class=3D"m" style=3D"font-weight: bold;">TWG</spa=
+n></td><td style=3D"background-color:#C0C0C0;color:#000000;">20</td><t=
+d style=3D"width:100px;background-color:#515151;color:#FFFFFF;font-wei=
+ght:bold;">2.937</td><td style=3D"width:100px;background-color:#C0C0C0=
+;color:#000000;">25.845</td></tr><tr style=3D"height:2px; background-c=
+olor:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td st=
+yle=3D"width:32px;background-color:#515151;color:#FFFFFF;font-weight:b=
+old;background-color:#000; color:#FFF; font-weight:bold; font-size:14p=
+x; padding-left:6px; padding-right:6px;">4</td><td style=3D"width:42px=
+;background-color:#C0C0C0;color:#000000;padding-left:6px; padding-righ=
+t:6px;"><div style=3D"height:20px; line-height:18px; background-color:=
+#FF0000; color:#FFFFFF;"><p style=3D"font-weight:bold; padding-left:4p=
+x; padding-right:4px; margin:0px;">7</p></div></td><td style=3D"text-a=
+lign:left;background-color:#C0C0C0;color:#000000;padding-left:6px; pad=
+ding-right:4px; white-space:nowrap;"><span class=3D"m" style=3D"font-w=
+eight: bold;">DENISENKO</span></td><td style=3D"background-color:#C0C0=
+C0;color:#000000;">20</td><td style=3D"width:100px;background-color:#5=
+15151;color:#FFFFFF;font-weight:bold;">5.372</td><td style=3D"width:10=
+0px;background-color:#C0C0C0;color:#000000;">26.341</td></tr><tr style=
+=3D"height:2px; background-color:transparent;"></tr><tr class=3D"tr" s=
+tyle=3D"height:28px;"><td style=3D"width:32px;background-color:#515151=
+;color:#FFFFFF;font-weight:bold;background-color:#000; color:#FFF; fon=
+t-weight:bold; font-size:14px; padding-left:6px; padding-right:6px;">5=
+</td><td style=3D"width:42px;background-color:#C0C0C0;color:#000000;pa=
+dding-left:6px; padding-right:6px;"><div style=3D"height:20px; line-he=
+ight:18px; background-color:#FF0000; color:#FFFFFF;"><p style=3D"font-=
+weight:bold; padding-left:4px; padding-right:4px; margin:0px;">5</p></=
+div></td><td style=3D"text-align:left;background-color:#C0C0C0;color:#=
+000000;padding-left:6px; padding-right:4px; white-space:nowrap;"><span=
+ class=3D"m" style=3D"font-weight: bold;">PHREEMAN</span></td><td styl=
+e=3D"background-color:#C0C0C0;color:#000000;">20</td><td style=3D"widt=
+h:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">10.7=
+30</td><td style=3D"width:100px;background-color:#C0C0C0;color:#000000=
+;">26.359</td></tr><tr style=3D"height:2px; background-color:transpare=
+nt;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:3=
+2px;background-color:#515151;color:#FFFFFF;font-weight:bold;background=
+-color:#000; color:#FFF; font-weight:bold; font-size:14px; padding-lef=
+t:6px; padding-right:6px;">6</td><td style=3D"width:42px;background-co=
+lor:#C0C0C0;color:#000000;padding-left:6px; padding-right:6px;"><div s=
+tyle=3D"height:20px; line-height:18px; background-color:#FF0000; color=
+:#FFFFFF;"><p style=3D"font-weight:bold; padding-left:4px; padding-rig=
+ht:4px; margin:0px;">19</p></div></td><td style=3D"text-align:left;bac=
+kground-color:#C0C0C0;color:#000000;padding-left:6px; padding-right:4p=
+x; white-space:nowrap;"><span class=3D"m" style=3D"font-weight: bold;"=
+>=D0=98=D0=93=D0=9E=D0=A0=D0=AC53</span></td><td style=3D"background-c=
+olor:#C0C0C0;color:#000000;">20</td><td style=3D"width:100px;backgroun=
+d-color:#515151;color:#FFFFFF;font-weight:bold;">21.300</td><td style=3D=
+"width:100px;background-color:#C0C0C0;color:#000000;">28.380</td></tr>=
+</tbody></table></div></td></tr></tbody></table><table style=3D"width:=
+100%;background-color:transparent;color:rgb(51, 51, 51);border-collaps=
+e:collapse; border-spacing:0;"><tbody><tr><td style=3D"vertical-align:=
+top;padding:0px;width:898px;max-width:898px;" ><div style=3D"padding:1=
+2px; padding-left:14px; padding-right:14px;"><table style=3D"width:100=
+%;border-collapse:collapse;line-height:18px;color:inherit;text-align:c=
+enter;cursor:default;"><thead style=3D"font-size:12px;"><tr style=3D"h=
+eight:24px; font-weight:bold;"><th style=3D"background-color:#EEEEEE; =
+color:#000000;width:42px;padding-left:4px; padding-right:4px;">Kart</t=
+h><th style=3D"background-color:#EEEEEE; color:#000000;width:132px;pad=
+ding-left:4px; padding-right:4px;text-align:left">Driver</th><th style=
+=3D"background-color:#EEEEEE; color:#000000;padding-left:4px; padding-=
+right:4px;">1</th><th style=3D"background-color:#EEEEEE; color:#000000=
+;padding-left:4px; padding-right:4px;">2</th><th style=3D"background-c=
+olor:#EEEEEE; color:#000000;padding-left:4px; padding-right:4px;">3</t=
+h><th style=3D"background-color:#EEEEEE; color:#000000;padding-left:4p=
+x; padding-right:4px;">4</th><th style=3D"background-color:#EEEEEE; co=
+lor:#000000;padding-left:4px; padding-right:4px;">5</th><th style=3D"b=
+ackground-color:#EEEEEE; color:#000000;padding-left:4px; padding-right=
+:4px;">6</th><th style=3D"background-color:#EEEEEE; color:#000000;padd=
+ing-left:4px; padding-right:4px;">7</th><th style=3D"background-color:=
+#EEEEEE; color:#000000;padding-left:4px; padding-right:4px;">8</th><th=
+ style=3D"background-color:#EEEEEE; color:#000000;padding-left:4px; pa=
+dding-right:4px;">9</th><th style=3D"background-color:#EEEEEE; color:#=
+000000;padding-left:4px; padding-right:4px;">10</th></tr></thead><tbod=
+y style=3D"font-size:12px;"><tr style=3D"height:2px; background-color:=
+transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D=
+"width:42px;background-color:#C0C0C0;color:#000000;padding-left:6px; p=
+adding-right:6px;"><div style=3D"height:20px; line-height:18px; backgr=
+ound-color:#FF0000; color:#FFFFFF;"><p style=3D"font-weight:bold; padd=
+ing-left:4px; padding-right:4px; margin:0px;">11</p></div></td><td sty=
+le=3D"width:132px;text-align:left;background-color:#C0C0C0;color:#0000=
+00;padding-left:6px; padding-right:4px; white-space:nowrap;"><span cla=
+ss=3D"m" style=3D"font-weight: bold;">KOLYA11</span></td><td style=3D"=
+background-color:#C0C0C0;color:#000000;">-</td><td style=3D"background=
+-color:#C0C0C0;color:#000000;">28.168</td><td style=3D"background-colo=
+r:#C0C0C0;color:#000000;">28.015</td><td style=3D"background-color:#C0=
+C0C0;color:#000000;">27.968</td><td style=3D"background-color:#C0C0C0;=
+color:#000000;">28.006</td><td style=3D"background-color:#C0C0C0;color=
+:#000000;">27.971</td><td style=3D"background-color:#C0C0C0;color:#000=
+000;">27.920</td><td style=3D"background-color:#C0C0C0;color:#000000;"=
+>28.157</td><td style=3D"background-color:#C0C0C0;color:#000000;">27.9=
+04</td><td style=3D"background-color:#C0C0C0;color:#000000;">27.983</t=
+d></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:42px=
+;background-color:#C0C0C0;color:#000000;"></td><td style=3D"width:132p=
+x;text-align:left;background-color:#C0C0C0;color:#000000;"></td><td st=
+yle=3D"background-color:#C0C0C0;color:#000000;">27.899</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">27.903</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">27.897</td><td style=3D"backgroun=
+d-color:#C0C0C0;color:#000000;">27.963</td><td style=3D"background-col=
+or:#C0C0C0;color:#000000;">28.013</td><td style=3D"background-color:#C=
+0C0C0;color:#000000;">29.558</td><td style=3D"background-color:#C0C0C0=
+;color:#000000;">41.889</td><td style=3D"background-color:#C0C0C0;colo=
+r:#000000;">28.276</td><td style=3D"background-color:#515151;color:#FF=
+FFFF;font-weight:bold;">26.012</td><td style=3D"background-color:#C0C0=
+C0;color:#000000;">27.956</td></tr><tr style=3D"height:2px; background=
+-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td =
+style=3D"width:42px;background-color:#C0C0C0;color:#000000;padding-lef=
+t:6px; padding-right:6px;"><div style=3D"height:20px; line-height:18px=
+; background-color:#FF0000; color:#FFFFFF;"><p style=3D"font-weight:bo=
+ld; padding-left:4px; padding-right:4px; margin:0px;">2</p></div></td>=
+<td style=3D"width:132px;text-align:left;background-color:#C0C0C0;colo=
+r:#000000;padding-left:6px; padding-right:4px; white-space:nowrap;"><s=
+pan class=3D"m" style=3D"font-weight: bold;">WLAD111</span></td><td st=
+yle=3D"background-color:#C0C0C0;color:#000000;">-</td><td style=3D"bac=
+kground-color:#C0C0C0;color:#000000;">28.872</td><td style=3D"backgrou=
+nd-color:#515151;color:#FFFFFF;font-weight:bold;">26.788</td><td style=
+=3D"background-color:#C0C0C0;color:#000000;">28.221</td><td style=3D"b=
+ackground-color:#C0C0C0;color:#000000;">28.380</td><td style=3D"backgr=
+ound-color:#C0C0C0;color:#000000;">28.043</td><td style=3D"background-=
+color:#C0C0C0;color:#000000;">27.998</td><td style=3D"background-color=
+:#C0C0C0;color:#000000;">28.034</td><td style=3D"background-color:#C0C=
+0C0;color:#000000;">27.903</td><td style=3D"background-color:#C0C0C0;c=
+olor:#000000;">27.850</td></tr><tr class=3D"tr" style=3D"height:28px;"=
+><td style=3D"width:42px;background-color:#C0C0C0;color:#000000;"></td=
+><td style=3D"width:132px;text-align:left;background-color:#C0C0C0;col=
+or:#000000;"></td><td style=3D"background-color:#C0C0C0;color:#000000;=
+">27.833</td><td style=3D"background-color:#C0C0C0;color:#000000;">27.=
+989</td><td style=3D"background-color:#C0C0C0;color:#000000;">27.804</=
+td><td style=3D"background-color:#C0C0C0;color:#000000;">28.061</td><t=
+d style=3D"background-color:#C0C0C0;color:#000000;">28.136</td><td sty=
+le=3D"background-color:#C0C0C0;color:#000000;">28.650</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">28.098</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">28.058</td><td style=3D"backgroun=
+d-color:#C0C0C0;color:#000000;">40.342</td><td style=3D"background-col=
+or:#C0C0C0;color:#000000;">28.089</td></tr><tr style=3D"height:2px; ba=
+ckground-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28p=
+x;"><td style=3D"width:42px;background-color:#C0C0C0;color:#000000;pad=
+ding-left:6px; padding-right:6px;"><div style=3D"height:20px; line-hei=
+ght:18px; background-color:#FF0000; color:#FFFFFF;"><p style=3D"font-w=
+eight:bold; padding-left:4px; padding-right:4px; margin:0px;">4</p></d=
+iv></td><td style=3D"width:132px;text-align:left;background-color:#C0C=
+0C0;color:#000000;padding-left:6px; padding-right:4px; white-space:now=
+rap;"><span class=3D"m" style=3D"font-weight: bold;">TWG</span></td><t=
+d style=3D"background-color:#C0C0C0;color:#000000;">-</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">28.544</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">44.455</td><td style=3D"backgroun=
+d-color:#C0C0C0;color:#000000;">28.472</td><td style=3D"background-col=
+or:#C0C0C0;color:#000000;">28.204</td><td style=3D"background-color:#C=
+0C0C0;color:#000000;">28.255</td><td style=3D"background-color:#C0C0C0=
+;color:#000000;">27.981</td><td style=3D"background-color:#C0C0C0;colo=
+r:#000000;">28.180</td><td style=3D"background-color:#C0C0C0;color:#00=
+0000;">27.960</td><td style=3D"background-color:#C0C0C0;color:#000000;=
+">28.023</td></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D=
+"width:42px;background-color:#C0C0C0;color:#000000;"></td><td style=3D=
+"width:132px;text-align:left;background-color:#C0C0C0;color:#000000;">=
+</td><td style=3D"background-color:#C0C0C0;color:#000000;">27.791</td>=
+<td style=3D"background-color:#C0C0C0;color:#000000;">27.838</td><td s=
+tyle=3D"background-color:#C0C0C0;color:#000000;">27.837</td><td style=3D=
+"background-color:#515151;color:#FFFFFF;font-weight:bold;">25.845</td>=
+<td style=3D"background-color:#C0C0C0;color:#000000;">27.988</td><td s=
+tyle=3D"background-color:#C0C0C0;color:#000000;">27.876</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">27.840</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">28.299</td><td style=3D"backgroun=
+d-color:#C0C0C0;color:#000000;">27.932</td><td style=3D"background-col=
+or:#C0C0C0;color:#000000;">27.986</td></tr><tr style=3D"height:2px; ba=
+ckground-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28p=
+x;"><td style=3D"width:42px;background-color:#C0C0C0;color:#000000;pad=
+ding-left:6px; padding-right:6px;"><div style=3D"height:20px; line-hei=
+ght:18px; background-color:#FF0000; color:#FFFFFF;"><p style=3D"font-w=
+eight:bold; padding-left:4px; padding-right:4px; margin:0px;">7</p></d=
+iv></td><td style=3D"width:132px;text-align:left;background-color:#C0C=
+0C0;color:#000000;padding-left:6px; padding-right:4px; white-space:now=
+rap;"><span class=3D"m" style=3D"font-weight: bold;">DENISENKO</span><=
+/td><td style=3D"background-color:#C0C0C0;color:#000000;">-</td><td st=
+yle=3D"background-color:#C0C0C0;color:#000000;">28.396</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">28.383</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">28.446</td><td style=3D"backgroun=
+d-color:#C0C0C0;color:#000000;">40.876</td><td style=3D"background-col=
+or:#C0C0C0;color:#000000;">28.604</td><td style=3D"background-color:#C=
+0C0C0;color:#000000;">28.363</td><td style=3D"background-color:#C0C0C0=
+;color:#000000;">28.441</td><td style=3D"background-color:#C0C0C0;colo=
+r:#000000;">28.493</td><td style=3D"background-color:#C0C0C0;color:#00=
+0000;">28.249</td></tr><tr class=3D"tr" style=3D"height:28px;"><td sty=
+le=3D"width:42px;background-color:#C0C0C0;color:#000000;"></td><td sty=
+le=3D"width:132px;text-align:left;background-color:#C0C0C0;color:#0000=
+00;"></td><td style=3D"background-color:#C0C0C0;color:#000000;">28.301=
+</td><td style=3D"background-color:#C0C0C0;color:#000000;">28.286</td>=
+<td style=3D"background-color:#C0C0C0;color:#000000;">28.702</td><td s=
+tyle=3D"background-color:#C0C0C0;color:#000000;">28.429</td><td style=3D=
+"background-color:#515151;color:#FFFFFF;font-weight:bold;">26.341</td>=
+<td style=3D"background-color:#C0C0C0;color:#000000;">28.561</td><td s=
+tyle=3D"background-color:#C0C0C0;color:#000000;">28.533</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">28.283</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">28.275</td><td style=3D"backgroun=
+d-color:#C0C0C0;color:#000000;">28.232</td></tr><tr style=3D"height:2p=
+x; background-color:transparent;"></tr><tr class=3D"tr" style=3D"heigh=
+t:28px;"><td style=3D"width:42px;background-color:#C0C0C0;color:#00000=
+0;padding-left:6px; padding-right:6px;"><div style=3D"height:20px; lin=
+e-height:18px; background-color:#FF0000; color:#FFFFFF;"><p style=3D"f=
+ont-weight:bold; padding-left:4px; padding-right:4px; margin:0px;">5</=
+p></div></td><td style=3D"width:132px;text-align:left;background-color=
+:#C0C0C0;color:#000000;padding-left:6px; padding-right:4px; white-spac=
+e:nowrap;"><span class=3D"m" style=3D"font-weight: bold;">PHREEMAN</sp=
+an></td><td style=3D"background-color:#C0C0C0;color:#000000;">-</td><t=
+d style=3D"background-color:#C0C0C0;color:#000000;">28.762</td><td sty=
+le=3D"background-color:#C0C0C0;color:#000000;">29.349</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">29.536</td><td style=3D"back=
+ground-color:#515151;color:#FFFFFF;font-weight:bold;">26.359</td><td s=
+tyle=3D"background-color:#C0C0C0;color:#000000;">28.400</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">28.345</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">28.249</td><td style=3D"backgroun=
+d-color:#C0C0C0;color:#000000;">28.781</td><td style=3D"background-col=
+or:#C0C0C0;color:#000000;">28.299</td></tr><tr class=3D"tr" style=3D"h=
+eight:28px;"><td style=3D"width:42px;background-color:#C0C0C0;color:#0=
+00000;"></td><td style=3D"width:132px;text-align:left;background-color=
+:#C0C0C0;color:#000000;"></td><td style=3D"background-color:#C0C0C0;co=
+lor:#000000;">28.648</td><td style=3D"background-color:#C0C0C0;color:#=
+000000;">28.352</td><td style=3D"background-color:#C0C0C0;color:#00000=
+0;">28.314</td><td style=3D"background-color:#C0C0C0;color:#000000;">2=
+8.598</td><td style=3D"background-color:#C0C0C0;color:#000000;">28.379=
+</td><td style=3D"background-color:#C0C0C0;color:#000000;">28.413</td>=
+<td style=3D"background-color:#C0C0C0;color:#000000;">28.384</td><td s=
+tyle=3D"background-color:#C0C0C0;color:#000000;">40.993</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">28.608</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">28.337</td></tr><tr style=3D"heig=
+ht:2px; background-color:transparent;"></tr><tr class=3D"tr" style=3D"=
+height:28px;"><td style=3D"width:42px;background-color:#C0C0C0;color:#=
+000000;padding-left:6px; padding-right:6px;"><div style=3D"height:20px=
+; line-height:18px; background-color:#FF0000; color:#FFFFFF;"><p style=
+=3D"font-weight:bold; padding-left:4px; padding-right:4px; margin:0px;=
+">19</p></div></td><td style=3D"width:132px;text-align:left;background=
+-color:#C0C0C0;color:#000000;padding-left:6px; padding-right:4px; whit=
+e-space:nowrap;"><span class=3D"m" style=3D"font-weight: bold;">=D0=98=
+=D0=93=D0=9E=D0=A0=D0=AC53</span></td><td style=3D"background-color:#C=
+0C0C0;color:#000000;">-</td><td style=3D"background-color:#C0C0C0;colo=
+r:#000000;">29.285</td><td style=3D"background-color:#C0C0C0;color:#00=
+0000;">29.938</td><td style=3D"background-color:#C0C0C0;color:#000000;=
+">29.358</td><td style=3D"background-color:#C0C0C0;color:#000000;">28.=
+526</td><td style=3D"background-color:#C0C0C0;color:#000000;">28.789</=
+td><td style=3D"background-color:#C0C0C0;color:#000000;">28.693</td><t=
+d style=3D"background-color:#C0C0C0;color:#000000;">28.937</td><td sty=
+le=3D"background-color:#C0C0C0;color:#000000;">29.209</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">28.741</td></tr><tr class=3D=
+"tr" style=3D"height:28px;"><td style=3D"width:42px;background-color:#=
+C0C0C0;color:#000000;"></td><td style=3D"width:132px;text-align:left;b=
+ackground-color:#C0C0C0;color:#000000;"></td><td style=3D"background-c=
+olor:#515151;color:#FFFFFF;font-weight:bold;">28.380</td><td style=3D"=
+background-color:#C0C0C0;color:#000000;">28.695</td><td style=3D"backg=
+round-color:#C0C0C0;color:#000000;">28.664</td><td style=3D"background=
+-color:#C0C0C0;color:#000000;">42.164</td><td style=3D"background-colo=
+r:#C0C0C0;color:#000000;">32.178</td><td style=3D"background-color:#C0=
+C0C0;color:#000000;">28.592</td><td style=3D"background-color:#C0C0C0;=
+color:#000000;">28.705</td><td style=3D"background-color:#C0C0C0;color=
+:#000000;">28.645</td><td style=3D"background-color:#C0C0C0;color:#000=
+000;">29.020</td><td style=3D"background-color:#C0C0C0;color:#000000;"=
+>28.559</td></tr></tbody></table></div></td></tr></tbody></table><tabl=
+e style=3D"width:100%;background-color:transparent;color:rgb(51, 51, 5=
+1);border-collapse:collapse; border-spacing:0;"><tbody><tr><td style=3D=
+"vertical-align:top;padding:0px;width:449px;max-width:449px;" ><div st=
+yle=3D"padding:12px; padding-left:14px; padding-right:14px;"><table st=
+yle=3D"width: 100%; border-collapse: collapse; font-weight: bold; back=
+ground-color: #515151; color: #FFFFFF; height: 26px;"><tr><td style=3D=
+"padding: 6px; text-align: center; height: inherit;">Your lap time <sp=
+an style=3D"padding-left: 6px; padding-right: 6px; font-size: 12px; fo=
+nt-weight: bold; background-color: #FF0000; color: #FFFFFF;">SR5</span=
+></td></tr></table><table style=3D"width:100%;border-collapse:collapse=
+;line-height:18px;color:inherit;text-align:center;cursor:default;"><th=
+ead style=3D"font-size:12px;"><tr style=3D"height:24px; font-weight:bo=
+ld;"><th style=3D"background-color:#EEEEEE; color:#000000;width:38px;p=
+adding-left:4px; padding-right:4px;">Lap</th><th style=3D"background-c=
+olor:#EEEEEE; color:#000000;width:70px;padding-left:4px; padding-right=
+:4px;">S1</th><th style=3D"background-color:#EEEEEE; color:#000000;wid=
+th:70px;padding-left:4px; padding-right:4px;">S2</th><th style=3D"back=
+ground-color:#EEEEEE; color:#000000;padding-left:4px; padding-right:4p=
+x;"></th><th style=3D"background-color:#FF0000; color:#FFFFFF;width:10=
+0px;padding-left:4px; padding-right:4px;">Time</th></tr></thead><tbody=
+ style=3D"font-size:12px;"><tr style=3D"height:2px; background-color:t=
+ransparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D=
+"width:38px;background-color:#C0C0C0;color:#000000;">1</td><td style=3D=
+"width:70px;background-color:#C0C0C0;color:#000000;">56.053</td><td st=
+yle=3D"width:70px;background-color:#C0C0C0;color:#000000;">14.243</td>=
+<td style=3D"background-color:#C0C0C0;color:#000000;"></td><td style=3D=
+"width:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;"=
+>-</td></tr><tr style=3D"height:2px; background-color:transparent;"></=
+tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:38px;bac=
+kground-color:#C0C0C0;color:#000000;">2</td><td style=3D"width:70px;ba=
+ckground-color:#C0C0C0;color:#000000;">14.218</td><td style=3D"width:7=
+0px;background-color:#C0C0C0;color:#000000;">14.654</td><td style=3D"b=
+ackground-color:#C0C0C0;color:#000000;"></td><td style=3D"width:100px;=
+background-color:#515151;color:#FFFFFF;font-weight:bold;">28.872</td><=
+/tr><tr style=3D"height:2px; background-color:transparent;"></tr><tr c=
+lass=3D"tr" style=3D"height:28px;"><td style=3D"width:38px;background-=
+color:#515151;color:#FFFFFF;">3</td><td style=3D"width:70px;background=
+-color:#515151;color:#FFFFFF;">12.241</td><td style=3D"width:70px;back=
+ground-color:#515151;color:#FFFFFF;">14.547</td><td style=3D"backgroun=
+d-color:#515151;color:#FFFFFF;"></td><td style=3D"width:100px;backgrou=
+nd-color:#515151;color:#FFFFFF;font-weight:bold;">26.788</td></tr><tr =
+style=3D"height:2px; background-color:transparent;"></tr><tr class=3D"=
+tr" style=3D"height:28px;"><td style=3D"width:38px;background-color:#C=
+0C0C0;color:#000000;">4</td><td style=3D"width:70px;background-color:#=
+C0C0C0;color:#000000;">14.103</td><td style=3D"width:70px;background-c=
+olor:#C0C0C0;color:#000000;">14.118</td><td style=3D"background-color:=
+#C0C0C0;color:#000000;"></td><td style=3D"width:100px;background-color=
+:#515151;color:#FFFFFF;font-weight:bold;">28.221</td></tr><tr style=3D=
+"height:2px; background-color:transparent;"></tr><tr class=3D"tr" styl=
+e=3D"height:28px;"><td style=3D"width:38px;background-color:#C0C0C0;co=
+lor:#000000;">5</td><td style=3D"width:70px;background-color:#C0C0C0;c=
+olor:#000000;">14.209</td><td style=3D"width:70px;background-color:#C0=
+C0C0;color:#000000;">14.171</td><td style=3D"background-color:#C0C0C0;=
+color:#000000;"></td><td style=3D"width:100px;background-color:#515151=
+;color:#FFFFFF;font-weight:bold;">28.380</td></tr><tr style=3D"height:=
+2px; background-color:transparent;"></tr><tr class=3D"tr" style=3D"hei=
+ght:28px;"><td style=3D"width:38px;background-color:#C0C0C0;color:#000=
+000;">6</td><td style=3D"width:70px;background-color:#C0C0C0;color:#00=
+0000;">14.027</td><td style=3D"width:70px;background-color:#C0C0C0;col=
+or:#000000;">14.016</td><td style=3D"background-color:#C0C0C0;color:#0=
+00000;"></td><td style=3D"width:100px;background-color:#515151;color:#=
+FFFFFF;font-weight:bold;">28.043</td></tr><tr style=3D"height:2px; bac=
+kground-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px=
+;"><td style=3D"width:38px;background-color:#C0C0C0;color:#000000;">7<=
+/td><td style=3D"width:70px;background-color:#C0C0C0;color:#000000;">1=
+3.915</td><td style=3D"width:70px;background-color:#C0C0C0;color:#0000=
+00;">14.083</td><td style=3D"background-color:#C0C0C0;color:#000000;">=
+</td><td style=3D"width:100px;background-color:#515151;color:#FFFFFF;f=
+ont-weight:bold;">27.998</td></tr><tr style=3D"height:2px; background-=
+color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td s=
+tyle=3D"width:38px;background-color:#C0C0C0;color:#000000;">8</td><td =
+style=3D"width:70px;background-color:#C0C0C0;color:#000000;">14.027</t=
+d><td style=3D"width:70px;background-color:#C0C0C0;color:#000000;">14.=
+007</td><td style=3D"background-color:#C0C0C0;color:#000000;"></td><td=
+ style=3D"width:100px;background-color:#515151;color:#FFFFFF;font-weig=
+ht:bold;">28.034</td></tr><tr style=3D"height:2px; background-color:tr=
+ansparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"=
+width:38px;background-color:#C0C0C0;color:#000000;">9</td><td style=3D=
+"width:70px;background-color:#C0C0C0;color:#000000;">13.904</td><td st=
+yle=3D"width:70px;background-color:#C0C0C0;color:#000000;">13.999</td>=
+<td style=3D"background-color:#C0C0C0;color:#000000;"></td><td style=3D=
+"width:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;"=
+>27.903</td></tr><tr style=3D"height:2px; background-color:transparent=
+;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:38p=
+x;background-color:#C0C0C0;color:#000000;">10</td><td style=3D"width:7=
+0px;background-color:#C0C0C0;color:#000000;">13.960</td><td style=3D"w=
+idth:70px;background-color:#C0C0C0;color:#000000;">13.890</td><td styl=
+e=3D"background-color:#C0C0C0;color:#000000;"></td><td style=3D"width:=
+100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">27.850=
+</td></tr><tr style=3D"height:2px; background-color:transparent;"></tr=
+><tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:38px;backg=
+round-color:#C0C0C0;color:#000000;">11</td><td style=3D"width:70px;bac=
+kground-color:#C0C0C0;color:#000000;">13.999</td><td style=3D"width:70=
+px;background-color:#C0C0C0;color:#000000;">13.834</td><td style=3D"ba=
+ckground-color:#C0C0C0;color:#000000;"></td><td style=3D"width:100px;b=
+ackground-color:#515151;color:#FFFFFF;font-weight:bold;">27.833</td></=
+tr><tr style=3D"height:2px; background-color:transparent;"></tr><tr cl=
+ass=3D"tr" style=3D"height:28px;"><td style=3D"width:38px;background-c=
+olor:#C0C0C0;color:#000000;">12</td><td style=3D"width:70px;background=
+-color:#C0C0C0;color:#000000;">13.951</td><td style=3D"width:70px;back=
+ground-color:#C0C0C0;color:#000000;">14.038</td><td style=3D"backgroun=
+d-color:#C0C0C0;color:#000000;"></td><td style=3D"width:100px;backgrou=
+nd-color:#515151;color:#FFFFFF;font-weight:bold;">27.989</td></tr><tr =
+style=3D"height:2px; background-color:transparent;"></tr><tr class=3D"=
+tr" style=3D"height:28px;"><td style=3D"width:38px;background-color:#C=
+0C0C0;color:#000000;">13</td><td style=3D"width:70px;background-color:=
+#C0C0C0;color:#000000;">13.884</td><td style=3D"width:70px;background-=
+color:#C0C0C0;color:#000000;">13.920</td><td style=3D"background-color=
+:#C0C0C0;color:#000000;"></td><td style=3D"width:100px;background-colo=
+r:#515151;color:#FFFFFF;font-weight:bold;">27.804</td></tr><tr style=3D=
+"height:2px; background-color:transparent;"></tr><tr class=3D"tr" styl=
+e=3D"height:28px;"><td style=3D"width:38px;background-color:#C0C0C0;co=
+lor:#000000;">14</td><td style=3D"width:70px;background-color:#C0C0C0;=
+color:#000000;">14.146</td><td style=3D"width:70px;background-color:#C=
+0C0C0;color:#000000;">13.915</td><td style=3D"background-color:#C0C0C0=
+;color:#000000;"></td><td style=3D"width:100px;background-color:#51515=
+1;color:#FFFFFF;font-weight:bold;">28.061</td></tr><tr style=3D"height=
+:2px; background-color:transparent;"></tr><tr class=3D"tr" style=3D"he=
+ight:28px;"><td style=3D"width:38px;background-color:#C0C0C0;color:#00=
+0000;">15</td><td style=3D"width:70px;background-color:#C0C0C0;color:#=
+000000;">14.138</td><td style=3D"width:70px;background-color:#C0C0C0;c=
+olor:#000000;">13.998</td><td style=3D"background-color:#C0C0C0;color:=
+#000000;"></td><td style=3D"width:100px;background-color:#515151;color=
+:#FFFFFF;font-weight:bold;">28.136</td></tr><tr style=3D"height:2px; b=
+ackground-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28=
+px;"><td style=3D"width:38px;background-color:#C0C0C0;color:#000000;">=
+16</td><td style=3D"width:70px;background-color:#C0C0C0;color:#000000;=
+">13.933</td><td style=3D"width:70px;background-color:#C0C0C0;color:#0=
+00000;">14.717</td><td style=3D"background-color:#C0C0C0;color:#000000=
+;"></td><td style=3D"width:100px;background-color:#515151;color:#FFFFF=
+F;font-weight:bold;">28.650</td></tr><tr style=3D"height:2px; backgrou=
+nd-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><t=
+d style=3D"width:38px;background-color:#C0C0C0;color:#000000;">17</td>=
+<td style=3D"width:70px;background-color:#C0C0C0;color:#000000;">13.93=
+9</td><td style=3D"width:70px;background-color:#C0C0C0;color:#000000;"=
+>14.159</td><td style=3D"background-color:#C0C0C0;color:#000000;"></td=
+><td style=3D"width:100px;background-color:#515151;color:#FFFFFF;font-=
+weight:bold;">28.098</td></tr><tr style=3D"height:2px; background-colo=
+r:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=
+=3D"width:38px;background-color:#C0C0C0;color:#000000;">18</td><td sty=
+le=3D"width:70px;background-color:#C0C0C0;color:#000000;">14.017</td><=
+td style=3D"width:70px;background-color:#C0C0C0;color:#000000;">14.041=
+</td><td style=3D"background-color:#C0C0C0;color:#000000;"></td><td st=
+yle=3D"width:100px;background-color:#515151;color:#FFFFFF;font-weight:=
+bold;">28.058</td></tr><tr style=3D"height:2px; background-color:trans=
+parent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"wid=
+th:38px;background-color:#C0C0C0;color:#000000;">19</td><td style=3D"w=
+idth:70px;background-color:#C0C0C0;color:#000000;">13.999</td><td styl=
+e=3D"width:70px;background-color:#C0C0C0;color:#000000;">26.343</td><t=
+d style=3D"background-color:#C0C0C0;color:#000000;"></td><td style=3D"=
+width:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">=
+40.342</td></tr><tr style=3D"height:2px; background-color:transparent;=
+"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:38px=
+;background-color:#C0C0C0;color:#000000;">20</td><td style=3D"width:70=
+px;background-color:#C0C0C0;color:#000000;">14.167</td><td style=3D"wi=
+dth:70px;background-color:#C0C0C0;color:#000000;">13.922</td><td style=
+=3D"background-color:#C0C0C0;color:#000000;"></td><td style=3D"width:1=
+00px;background-color:#515151;color:#FFFFFF;font-weight:bold;">28.089<=
+/td></tr></tbody></table></div></td><td style=3D"vertical-align:top;pa=
+dding:0px;width:449px;max-width:449px;" ><div style=3D"padding:12px; p=
+adding-left:14px; padding-right:14px;"><table style=3D"width: 100%; bo=
+rder-collapse: collapse; font-weight: bold; background-color: #515151;=
+ color: #FFFFFF; height: 26px;"><tr><td style=3D"padding: 6px; text-al=
+ign: center; height: inherit;">Your last sessions <span style=3D"paddi=
+ng-left: 6px; padding-right: 6px; font-size: 12px; font-weight: bold; =
+background-color: #FF0000; color: #FFFFFF;">SR5</span></td></tr></tabl=
+e><table style=3D"width:100%;border-collapse:collapse;line-height:18px=
+;color:inherit;text-align:center;cursor:default;"><thead style=3D"font=
+-size:12px;"><tr style=3D"height:24px; font-weight:bold;"><th style=3D=
+"background-color:#FF0000; color:#FFFFFF;width:32px;padding-left:4px; =
+padding-right:4px;">Rnk</th><th style=3D"background-color:#EEEEEE; col=
+or:#000000;padding-left:4px; padding-right:4px;">Date</th><th style=3D=
+"background-color:#FF0000; color:#FFFFFF;width:100px;padding-left:4px;=
+ padding-right:4px;">Best lap</th><th style=3D"background-color:#EEEEE=
+E; color:#000000;padding-left:4px; padding-right:4px;">Laps</th></tr><=
+/thead><tbody style=3D"font-size:12px;"><tr style=3D"height:2px; backg=
+round-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"=
+><td style=3D"width:32px;background-color:#515151;color:#FFFFFF;font-w=
+eight:bold;background-color:#A5ABC1; color:#000; font-weight:bold; fon=
+t-size:14px; padding-left:6px; padding-right:6px;">2</td><td style=3D"=
+background-color:#C0C0C0;color:#000000;">03.08.2026</td><td style=3D"w=
+idth:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">2=
+6.788</td><td style=3D"background-color:#C0C0C0;color:#000000;">20</td=
+></tr><tr style=3D"height:2px; background-color:transparent;"></tr><tr=
+ class=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;backgroun=
+d-color:#515151;color:#FFFFFF;font-weight:bold;background-color:#E9A35=
+B; color:#000; font-weight:bold; font-size:14px; padding-left:6px; pad=
+ding-right:6px;">3</td><td style=3D"background-color:#C0C0C0;color:#00=
+0000;">03.08.2026</td><td style=3D"width:100px;background-color:#51515=
+1;color:#FFFFFF;font-weight:bold;">27.932</td><td style=3D"background-=
+color:#C0C0C0;color:#000000;">17</td></tr><tr style=3D"height:2px; bac=
+kground-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px=
+;"><td style=3D"width:32px;background-color:#515151;color:#FFFFFF;font=
+-weight:bold;background-color:#A5ABC1; color:#000; font-weight:bold; f=
+ont-size:14px; padding-left:6px; padding-right:6px;">2</td><td style=3D=
+"background-color:#C0C0C0;color:#000000;">03.08.2026</td><td style=3D"=
+width:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">=
+27.740</td><td style=3D"background-color:#C0C0C0;color:#000000;">16</t=
+d></tr><tr style=3D"height:2px; background-color:transparent;"></tr><t=
+r class=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;backgrou=
+nd-color:#515151;color:#FFFFFF;font-weight:bold;background-color:#E9A3=
+5B; color:#000; font-weight:bold; font-size:14px; padding-left:6px; pa=
+dding-right:6px;">3</td><td style=3D"background-color:#C0C0C0;color:#0=
+00000;">27.07.2026</td><td style=3D"width:100px;background-color:#5151=
+51;color:#FFFFFF;font-weight:bold;">26.497</td><td style=3D"background=
+-color:#C0C0C0;color:#000000;">20</td></tr><tr style=3D"height:2px; ba=
+ckground-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28p=
+x;"><td style=3D"width:32px;background-color:#515151;color:#FFFFFF;fon=
+t-weight:bold;background-color:#000; color:#FFF; font-weight:bold; fon=
+t-size:14px; padding-left:6px; padding-right:6px;">4</td><td style=3D"=
+background-color:#C0C0C0;color:#000000;">27.07.2026</td><td style=3D"w=
+idth:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">2=
+8.447</td><td style=3D"background-color:#C0C0C0;color:#000000;">15</td=
+></tr><tr style=3D"height:2px; background-color:transparent;"></tr><tr=
+ class=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;backgroun=
+d-color:#515151;color:#FFFFFF;font-weight:bold;background-color:#A5ABC=
+1; color:#000; font-weight:bold; font-size:14px; padding-left:6px; pad=
+ding-right:6px;">2</td><td style=3D"background-color:#C0C0C0;color:#00=
+0000;">27.07.2026</td><td style=3D"width:100px;background-color:#51515=
+1;color:#FFFFFF;font-weight:bold;">28.116</td><td style=3D"background-=
+color:#C0C0C0;color:#000000;">17</td></tr><tr style=3D"height:2px; bac=
+kground-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px=
+;"><td style=3D"width:32px;background-color:#515151;color:#FFFFFF;font=
+-weight:bold;background-color:#000; color:#FFF; font-weight:bold; font=
+-size:14px; padding-left:6px; padding-right:6px;">4</td><td style=3D"b=
+ackground-color:#C0C0C0;color:#000000;">07.05.2026</td><td style=3D"wi=
+dth:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">26=
+=2E620</td><td style=3D"background-color:#C0C0C0;color:#000000;">30</t=
+d></tr><tr style=3D"height:2px; background-color:transparent;"></tr><t=
+r class=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;backgrou=
+nd-color:#515151;color:#FFFFFF;font-weight:bold;background-color:#000;=
+ color:#FFF; font-weight:bold; font-size:14px; padding-left:6px; paddi=
+ng-right:6px;">4</td><td style=3D"background-color:#C0C0C0;color:#0000=
+00;">07.05.2026</td><td style=3D"width:100px;background-color:#515151;=
+color:#FFFFFF;font-weight:bold;">26.602</td><td style=3D"background-co=
+lor:#C0C0C0;color:#000000;">20</td></tr><tr style=3D"height:2px; backg=
+round-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"=
+><td style=3D"width:32px;background-color:#515151;color:#FFFFFF;font-w=
+eight:bold;background-color:#000; color:#FFF; font-weight:bold; font-s=
+ize:14px; padding-left:6px; padding-right:6px;">7</td><td style=3D"bac=
+kground-color:#C0C0C0;color:#000000;">07.05.2026</td><td style=3D"widt=
+h:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">28.1=
+59</td><td style=3D"background-color:#C0C0C0;color:#000000;">17</td></=
+tr><tr style=3D"height:2px; background-color:transparent;"></tr><tr cl=
+ass=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;background-c=
+olor:#515151;color:#FFFFFF;font-weight:bold;background-color:#000; col=
+or:#FFF; font-weight:bold; font-size:14px; padding-left:6px; padding-r=
+ight:6px;">4</td><td style=3D"background-color:#C0C0C0;color:#000000;"=
+>07.05.2026</td><td style=3D"width:100px;background-color:#515151;colo=
+r:#FFFFFF;font-weight:bold;">27.867</td><td style=3D"background-color:=
+#C0C0C0;color:#000000;">23</td></tr><tr style=3D"height:2px; backgroun=
+d-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td=
+ style=3D"width:32px;background-color:#515151;color:#FFFFFF;font-weigh=
+t:bold;background-color:#FED413; color:#000; font-weight:bold; font-si=
+ze:14px; padding-left:6px; padding-right:6px;">1</td><td style=3D"back=
+ground-color:#C0C0C0;color:#000000;">04.05.2026</td><td style=3D"width=
+:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">25.86=
+7</td><td style=3D"background-color:#C0C0C0;color:#000000;">18</td></t=
+r><tr style=3D"height:2px; background-color:transparent;"></tr><tr cla=
+ss=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;background-co=
+lor:#515151;color:#FFFFFF;font-weight:bold;background-color:#FED413; c=
+olor:#000; font-weight:bold; font-size:14px; padding-left:6px; padding=
+-right:6px;">1</td><td style=3D"background-color:#C0C0C0;color:#000000=
+;">04.05.2026</td><td style=3D"width:100px;background-color:#515151;co=
+lor:#FFFFFF;font-weight:bold;">26.008</td><td style=3D"background-colo=
+r:#C0C0C0;color:#000000;">18</td></tr><tr style=3D"height:2px; backgro=
+und-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><=
+td style=3D"width:32px;background-color:#515151;color:#FFFFFF;font-wei=
+ght:bold;background-color:#A5ABC1; color:#000; font-weight:bold; font-=
+size:14px; padding-left:6px; padding-right:6px;">2</td><td style=3D"ba=
+ckground-color:#C0C0C0;color:#000000;">06.04.2026</td><td style=3D"wid=
+th:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;">26.=
+693</td><td style=3D"background-color:#C0C0C0;color:#000000;">20</td><=
+/tr><tr style=3D"height:2px; background-color:transparent;"></tr><tr c=
+lass=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;background-=
+color:#515151;color:#FFFFFF;font-weight:bold;background-color:#000; co=
+lor:#FFF; font-weight:bold; font-size:14px; padding-left:6px; padding-=
+right:6px;">5</td><td style=3D"background-color:#C0C0C0;color:#000000;=
+">06.04.2026</td><td style=3D"width:100px;background-color:#515151;col=
+or:#FFFFFF;font-weight:bold;">28.176</td><td style=3D"background-color=
+:#C0C0C0;color:#000000;">15</td></tr><tr style=3D"height:2px; backgrou=
+nd-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><t=
+d style=3D"width:32px;background-color:#515151;color:#FFFFFF;font-weig=
+ht:bold;background-color:#000; color:#FFF; font-weight:bold; font-size=
+:14px; padding-left:6px; padding-right:6px;">4</td><td style=3D"backgr=
+ound-color:#C0C0C0;color:#000000;">06.04.2026</td><td style=3D"width:1=
+00px;background-color:#515151;color:#FFFFFF;font-weight:bold;">27.998<=
+/td><td style=3D"background-color:#C0C0C0;color:#000000;">16</td></tr>=
+<tr style=3D"height:2px; background-color:transparent;"></tr><tr class=
+=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;background-colo=
+r:#515151;color:#FFFFFF;font-weight:bold;background-color:#A5ABC1; col=
+or:#000; font-weight:bold; font-size:14px; padding-left:6px; padding-r=
+ight:6px;">2</td><td style=3D"background-color:#C0C0C0;color:#000000;"=
+>30.03.2026</td><td style=3D"width:100px;background-color:#515151;colo=
+r:#FFFFFF;font-weight:bold;">26.155</td><td style=3D"background-color:=
+#C0C0C0;color:#000000;">20</td></tr><tr style=3D"height:2px; backgroun=
+d-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td=
+ style=3D"width:32px;background-color:#515151;color:#FFFFFF;font-weigh=
+t:bold;background-color:#000; color:#FFF; font-weight:bold; font-size:=
+14px; padding-left:6px; padding-right:6px;">8</td><td style=3D"backgro=
+und-color:#C0C0C0;color:#000000;">30.03.2026</td><td style=3D"width:10=
+0px;background-color:#515151;color:#FFFFFF;font-weight:bold;">28.043</=
+td><td style=3D"background-color:#C0C0C0;color:#000000;">16</td></tr><=
+tr style=3D"height:2px; background-color:transparent;"></tr><tr class=3D=
+"tr" style=3D"height:28px;"><td style=3D"width:32px;background-color:#=
+515151;color:#FFFFFF;font-weight:bold;background-color:#000; color:#FF=
+F; font-weight:bold; font-size:14px; padding-left:6px; padding-right:6=
+px;">5</td><td style=3D"background-color:#C0C0C0;color:#000000;">30.03=
+=2E2026</td><td style=3D"width:100px;background-color:#515151;color:#F=
+FFFFF;font-weight:bold;">28.094</td><td style=3D"background-color:#C0C=
+0C0;color:#000000;">16</td></tr><tr style=3D"height:2px; background-co=
+lor:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td sty=
+le=3D"width:32px;background-color:#515151;color:#FFFFFF;font-weight:bo=
+ld;background-color:#000; color:#FFF; font-weight:bold; font-size:14px=
+; padding-left:6px; padding-right:6px;">5</td><td style=3D"background-=
+color:#C0C0C0;color:#000000;">09.02.2026</td><td style=3D"width:100px;=
+background-color:#515151;color:#FFFFFF;font-weight:bold;">26.212</td><=
+td style=3D"background-color:#C0C0C0;color:#000000;">20</td></tr><tr s=
+tyle=3D"height:2px; background-color:transparent;"></tr><tr class=3D"t=
+r" style=3D"height:28px;"><td style=3D"width:32px;background-color:#51=
+5151;color:#FFFFFF;font-weight:bold;background-color:#FED413; color:#0=
+00; font-weight:bold; font-size:14px; padding-left:6px; padding-right:=
+6px;">1</td><td style=3D"background-color:#C0C0C0;color:#000000;">09.0=
+2.2026</td><td style=3D"width:100px;background-color:#515151;color:#FF=
+FFFF;font-weight:bold;">27.666</td><td style=3D"background-color:#C0C0=
+C0;color:#000000;">16</td></tr></tbody></table></div></td></tr></tbody=
+></table><table style=3D"width:100%;background-color:transparent;color=
+:rgb(51, 51, 51);border-collapse:collapse; border-spacing:0;"><tbody><=
+tr><td style=3D"vertical-align:top;padding:0px;width:449px;max-width:4=
+49px;" ><div style=3D"padding:12px; padding-left:14px; padding-right:1=
+4px;"><table style=3D"width: 100%; border-collapse: collapse; font-wei=
+ght: bold; background-color: #515151; color: #FFFFFF; height: 26px;"><=
+tr><td style=3D"padding: 6px; text-align: center; height: inherit;">Be=
+st times of the week  <span style=3D"padding-left: 6px; padding-right:=
+ 6px; font-size: 12px; font-weight: bold; background-color: #FF0000; c=
+olor: #FFFFFF;">SR5</span></td></tr></table><table style=3D"width:100%=
+;border-collapse:collapse;line-height:18px;color:inherit;text-align:ce=
+nter;cursor:default;"><thead style=3D"font-size:12px;"><tr style=3D"he=
+ight:24px; font-weight:bold;"><th style=3D"background-color:#FF0000; c=
+olor:#FFFFFF;width:32px;padding-left:4px; padding-right:4px;">#</th><t=
+h style=3D"background-color:#EEEEEE; color:#000000;padding-left:4px; p=
+adding-right:4px;text-align:left">Driver</th><th style=3D"background-c=
+olor:#FF0000; color:#FFFFFF;width:100px;padding-left:4px; padding-righ=
+t:4px;">Best lap</th></tr></thead><tbody style=3D"font-size:12px;"><tr=
+ style=3D"height:2px; background-color:transparent;"></tr><tr class=3D=
+"tr" style=3D"height:28px;"><td style=3D"width:32px;background-color:#=
+515151;color:#FFFFFF;font-weight:bold;background-color:#FED413; color:=
+#000; font-weight:bold; font-size:14px; padding-left:6px; padding-righ=
+t:6px;">1</td><td style=3D"text-align:left;background-color:#C0C0C0;co=
+lor:#000000;padding-left:6px; padding-right:4px; white-space:nowrap;">=
+<span class=3D"m" style=3D"font-weight: bold;">KOLYA11</span></td><td =
+style=3D"width:100px;background-color:#515151;color:#FFFFFF;font-weigh=
+t:bold;">25.640</td></tr><tr style=3D"height:2px; background-color:tra=
+nsparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"w=
+idth:32px;background-color:#515151;color:#FFFFFF;font-weight:bold;back=
+ground-color:#000; color:#FFF; font-weight:bold; font-size:14px; paddi=
+ng-left:6px; padding-right:6px;">10</td><td style=3D"text-align:left;b=
+ackground-color:#C0C0C0;color:#000000;padding-left:6px; padding-right:=
+4px; white-space:nowrap;"><span class=3D"m" style=3D"font-weight: bold=
+;">=D0=98=D0=93=D0=9E=D0=A0=D0=AC53</span></td><td style=3D"width:100p=
+x;background-color:#515151;color:#FFFFFF;font-weight:bold;">26.615</td=
+></tr><tr style=3D"height:2px; background-color:transparent;"></tr><tr=
+ class=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;backgroun=
+d-color:#515151;color:#FFFFFF;font-weight:bold;background-color:#000; =
+color:#FFF; font-weight:bold; font-size:14px; padding-left:6px; paddin=
+g-right:6px;">11</td><td style=3D"text-align:left;background-color:#C0=
+C0C0;color:#000000;padding-left:6px; padding-right:4px; white-space:no=
+wrap;"><span class=3D"m" style=3D"font-weight: bold;">SHINSILAXX</span=
+></td><td style=3D"width:100px;background-color:#515151;color:#FFFFFF;=
+font-weight:bold;">26.701</td></tr><tr style=3D"height:2px; background=
+-color:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td =
+style=3D"width:32px;background-color:#515151;color:#FFFFFF;font-weight=
+:bold;background-color:#000; color:#FFF; font-weight:bold; font-size:1=
+4px; padding-left:6px; padding-right:6px;">12</td><td style=3D"text-al=
+ign:left;background-color:#515151;color:#FFFFFF;padding-left:6px; padd=
+ing-right:4px; white-space:nowrap;"><span class=3D"m" style=3D"font-we=
+ight: bold;">WLAD111</span></td><td style=3D"width:100px;background-co=
+lor:#515151;color:#FFFFFF;font-weight:bold;">26.788</td></tr><tr style=
+=3D"height:2px; background-color:transparent;"></tr><tr class=3D"tr" s=
+tyle=3D"height:28px;"><td style=3D"width:32px;background-color:#515151=
+;color:#FFFFFF;font-weight:bold;background-color:#000; color:#FFF; fon=
+t-weight:bold; font-size:14px; padding-left:6px; padding-right:6px;">1=
+3</td><td style=3D"text-align:left;background-color:#C0C0C0;color:#000=
+000;padding-left:6px; padding-right:4px; white-space:nowrap;"><span st=
+yle=3D"font-weight: bold;">WEEDSTAPPEN</span></td><td style=3D"width:1=
+00px;background-color:#515151;color:#FFFFFF;font-weight:bold;">26.820<=
+/td></tr><tr style=3D"height:2px; background-color:transparent;"></tr>=
+<tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;backgr=
+ound-color:#515151;color:#FFFFFF;font-weight:bold;background-color:#00=
+0; color:#FFF; font-weight:bold; font-size:14px; padding-left:6px; pad=
+ding-right:6px;">14</td><td style=3D"text-align:left;background-color:=
+#C0C0C0;color:#000000;padding-left:6px; padding-right:4px; white-space=
+:nowrap;"><span class=3D"w" style=3D"font-weight: bold;">SWALLOW</span=
+></td><td style=3D"width:100px;background-color:#515151;color:#FFFFFF;=
+font-weight:bold;">27.641</td></tr></tbody></table></div></td><td styl=
+e=3D"vertical-align:top;padding:0px;width:449px;max-width:449px;" ><di=
+v style=3D"padding:12px; padding-left:14px; padding-right:14px;"><tabl=
+e style=3D"width: 100%; border-collapse: collapse; font-weight: bold; =
+background-color: #515151; color: #FFFFFF; height: 26px;"><tr><td styl=
+e=3D"padding: 6px; text-align: center; height: inherit;">Track records=
+  <span style=3D"padding-left: 6px; padding-right: 6px; font-size: 12p=
+x; font-weight: bold; background-color: #FF0000; color: #FFFFFF;">SR5<=
+/span></td></tr></table><table style=3D"width:100%;border-collapse:col=
+lapse;line-height:18px;color:inherit;text-align:center;cursor:default;=
+"><thead style=3D"font-size:12px;"><tr style=3D"height:24px; font-weig=
+ht:bold;"><th style=3D"background-color:#FF0000; color:#FFFFFF;width:3=
+2px;padding-left:4px; padding-right:4px;">#</th><th style=3D"backgroun=
+d-color:#EEEEEE; color:#000000;padding-left:4px; padding-right:4px;tex=
+t-align:left">Driver</th><th style=3D"background-color:#FF0000; color:=
+#FFFFFF;width:100px;padding-left:4px; padding-right:4px;">Best lap</th=
+></tr></thead><tbody style=3D"font-size:12px;"><tr style=3D"height:2px=
+; background-color:transparent;"></tr><tr class=3D"tr" style=3D"height=
+:28px;"><td style=3D"width:32px;background-color:#515151;color:#FFFFFF=
+;font-weight:bold;background-color:#FED413; color:#000; font-weight:bo=
+ld; font-size:14px; padding-left:6px; padding-right:6px;">1</td><td st=
+yle=3D"text-align:left;background-color:#C0C0C0;color:#000000;padding-=
+left:6px; padding-right:4px; white-space:nowrap;"><span class=3D"m" st=
+yle=3D"font-weight: bold;">PHREEMAN</span></td><td style=3D"width:100p=
+x;background-color:#515151;color:#FFFFFF;font-weight:bold;">20.255</td=
+></tr><tr style=3D"height:2px; background-color:transparent;"></tr><tr=
+ class=3D"tr" style=3D"height:28px;"><td style=3D"width:32px;backgroun=
+d-color:#515151;color:#FFFFFF;font-weight:bold;background-color:#000; =
+color:#FFF; font-weight:bold; font-size:14px; padding-left:6px; paddin=
+g-right:6px;">50</td><td style=3D"text-align:left;background-color:#C0=
+C0C0;color:#000000;padding-left:6px; padding-right:4px; white-space:no=
+wrap;"><span class=3D"m" style=3D"font-weight: bold;">VERON28</span></=
+td><td style=3D"width:100px;background-color:#515151;color:#FFFFFF;fon=
+t-weight:bold;">24.639</td></tr><tr style=3D"height:2px; background-co=
+lor:transparent;"></tr><tr class=3D"tr" style=3D"height:28px;"><td sty=
+le=3D"width:32px;background-color:#515151;color:#FFFFFF;font-weight:bo=
+ld;background-color:#000; color:#FFF; font-weight:bold; font-size:14px=
+; padding-left:6px; padding-right:6px;">51</td><td style=3D"text-align=
+:left;background-color:#C0C0C0;color:#000000;padding-left:6px; padding=
+-right:4px; white-space:nowrap;"><span class=3D"m" style=3D"font-weigh=
+t: bold;">KARTMAN51</span></td><td style=3D"width:100px;background-=
+color:#515151;color:#FFFFFF;font-weight:bold;">24.640</td></tr><tr sty=
+le=3D"height:2px; background-color:transparent;"></tr><tr class=3D"tr"=
+ style=3D"height:28px;"><td style=3D"width:32px;background-color:#5151=
+51;color:#FFFFFF;font-weight:bold;background-color:#000; color:#FFF; f=
+ont-weight:bold; font-size:14px; padding-left:6px; padding-right:6px;"=
+>52</td><td style=3D"text-align:left;background-color:#515151;color:#F=
+FFFFF;padding-left:6px; padding-right:4px; white-space:nowrap;"><span =
+class=3D"m" style=3D"font-weight: bold;">WLAD111</span></td><td style=3D=
+"width:100px;background-color:#515151;color:#FFFFFF;font-weight:bold;"=
+>24.643</td></tr><tr style=3D"height:2px; background-color:transparent=
+;"></tr><tr class=3D"tr" style=3D"height:28px;"><td style=3D"width:32p=
+x;background-color:#515151;color:#FFFFFF;font-weight:bold;background-c=
+olor:#000; color:#FFF; font-weight:bold; font-size:14px; padding-left:=
+6px; padding-right:6px;">53</td><td style=3D"text-align:left;backgroun=
+d-color:#C0C0C0;color:#000000;padding-left:6px; padding-right:4px; whi=
+te-space:nowrap;"><span class=3D"m" style=3D"font-weight: bold;">DRIGO=
+EUGENE</span></td><td style=3D"width:100px;background-color:#515151;co=
+lor:#FFFFFF;font-weight:bold;">24.669</td></tr><tr style=3D"height:2px=
+; background-color:transparent;"></tr><tr class=3D"tr" style=3D"height=
+:28px;"><td style=3D"width:32px;background-color:#515151;color:#FFFFFF=
+;font-weight:bold;background-color:#000; color:#FFF; font-weight:bold;=
+ font-size:14px; padding-left:6px; padding-right:6px;">54</td><td styl=
+e=3D"text-align:left;background-color:#C0C0C0;color:#000000;padding-le=
+ft:6px; padding-right:4px; white-space:nowrap;"><span class=3D"m" styl=
+e=3D"font-weight: bold;">MAXINVISEONS</span></td><td style=3D"width:10=
+0px;background-color:#515151;color:#FFFFFF;font-weight:bold;">24.673</=
+td></tr></tbody></table></div></td></tr></tbody></table><table style=3D=
+"width:100%;background-color:rgb(81, 81, 81);color:rgb(255, 255, 255);=
+border-collapse:collapse; border-spacing:0;"><tbody><tr><td style=3D"v=
+ertical-align:top;padding:0px;width:898px;max-width:898px;" ><div styl=
+e=3D"word-wrap:break-word;padding:10px;padding-left:14px;padding-right=
+:14px;"><p style=3D"text-align: center;"><span style=3D"font-size:16px=
+;"><strong>You can review all rankings and all records on <a href=3D"h=
+ttp://www.primokarting.ru" style=3D"color: #FFF">our website</a></stro=
+ng></span></p>
+</div></td></tr></tbody></table><table style=3D"width:100%;background-=
+color:transparent;color:rgb(51, 51, 51);border-collapse:collapse; bord=
+er-spacing:0;"><tbody><tr><td style=3D"vertical-align:top;padding:0px;=
+width:898px;max-width:898px;" ><div style=3D"word-wrap:break-word;padd=
+ing:10px;padding-left:14px;padding-right:14px;"><p style=3D"text-align=
+: center;"><span style=3D"font-size:11px;">This email has been sent to=
+ <a href=3D"mailto: driver@example.com">driver@example.com</a>, <a=
+ href=3D"https://primokarting.ru/results/?center=3D51&unsubscribe&clie=
+nt=3D10001&id=3D1000001&key=3DEXAMPLEKEY01">click here to unsubscribe<=
+/a>.</span></p>
+</div></td></tr></tbody></table></div></td></tr></table>
+<img width=3D"2" height=3D"1" src=3D"https://www.apex-timing.com/gokar=
+ts/functions/mail_read.php?center=3D51&id=3D1000001" alt=3D"">
+<style type=3D"text/css">.m, .w{-webkit-transition: color 0.3s; -moz-t=
+ransition: color 0.3s;}.tr:hover .m{color: #0084DA;} .tr:hover .w{colo=
+r: #F300FF;}</style>
+</body>
+</html>
+

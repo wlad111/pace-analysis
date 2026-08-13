@@ -1,0 +1,148 @@
+{
+  "_comment": "Ground truth for 'primo-karting-final-a.eml', transcribed by hand from the rendered email. Times are the literal strings shown in the email; null means the cell showed '-' (no time). Lap arrays are 1-indexed by position: element 0 is lap 1.",
+
+  "provenance": {
+    "subject_normalized": "PRIMO KARTING : PRIMO GARA - Final A (FA)",
+    "from_name": "PRIMO KARTING",
+    "from_email": "info@primokarting.ru",
+    "recipient_email": "driver@example.com",
+    "recipient_nickname": "WLAD111",
+    "sent_at": "2026-08-03T20:52:30+02:00"
+  },
+
+  "club": {
+    "name": "PRIMO KARTING",
+    "external_id": "51",
+    "website": "http://www.primokarting.ru"
+  },
+
+  "session": {
+    "name": "PRIMO GARA - Final A",
+    "code": "FA",
+    "started_at": "2026-08-03T21:40:00",
+    "track": "Karting track",
+    "category": "SR5",
+    "header_line": "PRIMO GARA - Final A (FA) - 03.08.2026 à 21:40 (Karting track)"
+  },
+
+  "recipient_external_id": "10001",
+
+  "podium": [[1, "KOLYA11"], [2, "WLAD111"], [3, "TWG"]],
+
+  "classification": [
+    {"position": 1, "kart": "11", "driver": "KOLYA11",   "laps": 20, "gap": null,     "best_lap": "26.012"},
+    {"position": 2, "kart": "2",  "driver": "WLAD111",   "laps": 20, "gap": "2.022",  "best_lap": "26.788"},
+    {"position": 3, "kart": "4",  "driver": "TWG",       "laps": 20, "gap": "2.937",  "best_lap": "25.845"},
+    {"position": 4, "kart": "7",  "driver": "DENISENKO", "laps": 20, "gap": "5.372",  "best_lap": "26.341"},
+    {"position": 5, "kart": "5",  "driver": "PHREEMAN",  "laps": 20, "gap": "10.730", "best_lap": "26.359"},
+    {"position": 6, "kart": "19", "driver": "ИГОРЬ53",   "laps": 20, "gap": "21.300", "best_lap": "28.380"}
+  ],
+
+  "lap_chart_wrap_width": 10,
+
+  "laps": {
+    "KOLYA11": [
+      null, "28.168", "28.015", "27.968", "28.006", "27.971", "27.920", "28.157", "27.904", "27.983",
+      "27.899", "27.903", "27.897", "27.963", "28.013", "29.558", "41.889", "28.276", "26.012", "27.956"
+    ],
+    "WLAD111": [
+      null, "28.872", "26.788", "28.221", "28.380", "28.043", "27.998", "28.034", "27.903", "27.850",
+      "27.833", "27.989", "27.804", "28.061", "28.136", "28.650", "28.098", "28.058", "40.342", "28.089"
+    ],
+    "TWG": [
+      null, "28.544", "44.455", "28.472", "28.204", "28.255", "27.981", "28.180", "27.960", "28.023",
+      "27.791", "27.838", "27.837", "25.845", "27.988", "27.876", "27.840", "28.299", "27.932", "27.986"
+    ],
+    "DENISENKO": [
+      null, "28.396", "28.383", "28.446", "40.876", "28.604", "28.363", "28.441", "28.493", "28.249",
+      "28.301", "28.286", "28.702", "28.429", "26.341", "28.561", "28.533", "28.283", "28.275", "28.232"
+    ],
+    "PHREEMAN": [
+      null, "28.762", "29.349", "29.536", "26.359", "28.400", "28.345", "28.249", "28.781", "28.299",
+      "28.648", "28.352", "28.314", "28.598", "28.379", "28.413", "28.384", "40.993", "28.608", "28.337"
+    ],
+    "ИГОРЬ53": [
+      null, "29.285", "29.938", "29.358", "28.526", "28.789", "28.693", "28.937", "29.209", "28.741",
+      "28.380", "28.695", "28.664", "42.164", "32.178", "28.592", "28.705", "28.645", "29.020", "28.559"
+    ]
+  },
+
+  "karts": {
+    "KOLYA11": "11", "WLAD111": "2", "TWG": "4",
+    "DENISENKO": "7", "PHREEMAN": "5", "ИГОРЬ53": "19"
+  },
+
+  "_best_lap_comment": "Lap number (1-based) highlighted with background-color #515151 in the lap chart.",
+  "best_lap_number": {
+    "KOLYA11": 19, "WLAD111": 3, "TWG": 14,
+    "DENISENKO": 15, "PHREEMAN": 5, "ИГОРЬ53": 11
+  },
+
+  "recipient_sector_table": {
+    "driver": "WLAD111",
+    "sector_labels": ["S1", "S2"],
+    "rows": [
+      {"lap": 1,  "sectors": ["56.053", "14.243"], "time": null},
+      {"lap": 2,  "sectors": ["14.218", "14.654"], "time": "28.872"},
+      {"lap": 3,  "sectors": ["12.241", "14.547"], "time": "26.788"},
+      {"lap": 4,  "sectors": ["14.103", "14.118"], "time": "28.221"},
+      {"lap": 5,  "sectors": ["14.209", "14.171"], "time": "28.380"},
+      {"lap": 6,  "sectors": ["14.027", "14.016"], "time": "28.043"},
+      {"lap": 7,  "sectors": ["13.915", "14.083"], "time": "27.998"},
+      {"lap": 8,  "sectors": ["14.027", "14.007"], "time": "28.034"},
+      {"lap": 9,  "sectors": ["13.904", "13.999"], "time": "27.903"},
+      {"lap": 10, "sectors": ["13.960", "13.890"], "time": "27.850"},
+      {"lap": 11, "sectors": ["13.999", "13.834"], "time": "27.833"},
+      {"lap": 12, "sectors": ["13.951", "14.038"], "time": "27.989"},
+      {"lap": 13, "sectors": ["13.884", "13.920"], "time": "27.804"},
+      {"lap": 14, "sectors": ["14.146", "13.915"], "time": "28.061"},
+      {"lap": 15, "sectors": ["14.138", "13.998"], "time": "28.136"},
+      {"lap": 16, "sectors": ["13.933", "14.717"], "time": "28.650"},
+      {"lap": 17, "sectors": ["13.939", "14.159"], "time": "28.098"},
+      {"lap": 18, "sectors": ["14.017", "14.041"], "time": "28.058"},
+      {"lap": 19, "sectors": ["13.999", "26.343"], "time": "40.342"},
+      {"lap": 20, "sectors": ["14.167", "13.922"], "time": "28.089"}
+    ]
+  },
+
+  "history": [
+    {"position": 2, "date": "2026-08-03", "best_lap": "26.788", "laps": 20},
+    {"position": 3, "date": "2026-08-03", "best_lap": "27.932", "laps": 17},
+    {"position": 2, "date": "2026-08-03", "best_lap": "27.740", "laps": 16},
+    {"position": 3, "date": "2026-07-27", "best_lap": "26.497", "laps": 20},
+    {"position": 4, "date": "2026-07-27", "best_lap": "28.447", "laps": 15},
+    {"position": 2, "date": "2026-07-27", "best_lap": "28.116", "laps": 17},
+    {"position": 4, "date": "2026-05-07", "best_lap": "26.620", "laps": 30},
+    {"position": 4, "date": "2026-05-07", "best_lap": "26.602", "laps": 20},
+    {"position": 7, "date": "2026-05-07", "best_lap": "28.159", "laps": 17},
+    {"position": 4, "date": "2026-05-07", "best_lap": "27.867", "laps": 23},
+    {"position": 1, "date": "2026-05-04", "best_lap": "25.867", "laps": 18},
+    {"position": 1, "date": "2026-05-04", "best_lap": "26.008", "laps": 18},
+    {"position": 2, "date": "2026-04-06", "best_lap": "26.693", "laps": 20},
+    {"position": 5, "date": "2026-04-06", "best_lap": "28.176", "laps": 15},
+    {"position": 4, "date": "2026-04-06", "best_lap": "27.998", "laps": 16},
+    {"position": 2, "date": "2026-03-30", "best_lap": "26.155", "laps": 20},
+    {"position": 8, "date": "2026-03-30", "best_lap": "28.043", "laps": 16},
+    {"position": 5, "date": "2026-03-30", "best_lap": "28.094", "laps": 16},
+    {"position": 5, "date": "2026-02-09", "best_lap": "26.212", "laps": 20},
+    {"position": 1, "date": "2026-02-09", "best_lap": "27.666", "laps": 16}
+  ],
+
+  "weekly_best": [
+    {"rank": 1,  "driver": "KOLYA11",     "best_lap": "25.640"},
+    {"rank": 10, "driver": "ИГОРЬ53",     "best_lap": "26.615"},
+    {"rank": 11, "driver": "SHINSILAXX",  "best_lap": "26.701"},
+    {"rank": 12, "driver": "WLAD111",     "best_lap": "26.788"},
+    {"rank": 13, "driver": "WEEDSTAPPEN", "best_lap": "26.820"},
+    {"rank": 14, "driver": "SWALLOW",     "best_lap": "27.641"}
+  ],
+
+  "track_records": [
+    {"rank": 1,  "driver": "PHREEMAN",     "best_lap": "20.255"},
+    {"rank": 50, "driver": "VERON28",      "best_lap": "24.639"},
+    {"rank": 51, "driver": "KARTMAN51", "best_lap": "24.640"},
+    {"rank": 52, "driver": "WLAD111",      "best_lap": "24.643"},
+    {"rank": 53, "driver": "DRIGOEUGENE",  "best_lap": "24.669"},
+    {"rank": 54, "driver": "MAXINVISEONS", "best_lap": "24.673"}
+  ]
+}

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtualenv (the only environment lives in ./.venv and is never committed)
+.venv/
+
+# Local database and its WAL/SHM sidecars
+data/*.db*
+
+# Imported raw emails are provenance copies, not source
+data/raw_emails/*
+!data/raw_emails/.gitkeep
+
+# Frontend
+node_modules/
+web/dist/
+web/node_modules/
+
+# Editors / OS
+.env
+.env.local
+.DS_Store
+.idea/
+.vscode/
+
+# NOTE: *.eml is deliberately NOT ignored.
+# The reference email in the repository root is the ground-truth fixture for
+# the parser tests and must stay under version control.
