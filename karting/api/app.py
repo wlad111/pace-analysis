@@ -976,6 +976,28 @@ def create_app() -> FastAPI:
 def _register_routes(application: FastAPI) -> None:
     """Attach every `/api` route to `application`."""
 
+    # Read-only skips the write routes only. An early return would have been
+    # simpler and wrong: the routes are grouped by subject, not by verb, so
+    # bailing out at the first POST also took /compare, /rankings, /drivers and
+    # the driver history with it.
+    writable = not read_only()
+
+    def write_post(*args: Any, **kwargs: Any) -> Any:
+        """`application.post`, but a no-op on a read-only deployment."""
+
+        def decorator(func: Any) -> Any:
+            return application.post(*args, **kwargs)(func) if writable else func
+
+        return decorator
+
+    def write_delete(*args: Any, **kwargs: Any) -> Any:
+        """`application.delete`, but a no-op on a read-only deployment."""
+
+        def decorator(func: Any) -> Any:
+            return application.delete(*args, **kwargs)(func) if writable else func
+
+        return decorator
+
     @application.get("/api/health", response_model=HealthResponse, tags=["meta"])
     def health(db: DbDep) -> HealthResponse:
         """Liveness probe, session count, and whether writes are switched off."""
@@ -1039,12 +1061,7 @@ def _register_routes(application: FastAPI) -> None:
         _session_or_404(db, session_id)
         return _event_report_or_error(db, session_id, thresholds, persist=False)
 
-    # Everything below writes. In read-only mode the routes are never attached,
-    # so the paths simply do not exist (404) instead of existing-but-refusing.
-    if read_only():
-        return
-
-    @application.post(
+    @write_post(
         "/api/sessions/{session_id}/events/detect",
         response_model=EventReportOut,
         status_code=status.HTTP_200_OK,
@@ -1144,7 +1161,7 @@ def _register_routes(application: FastAPI) -> None:
             )
         return [_label_official_best(jsonable(row)) for row in db.driver_history(resolved)]
 
-    @application.post(
+    @write_post(
         "/api/imports",
         response_model=list[ImportReportOut],
         tags=["imports"],
@@ -1178,7 +1195,7 @@ def _register_routes(application: FastAPI) -> None:
             )
         return reports
 
-    @application.post(
+    @write_post(
         "/api/laps/{lap_id}/tags",
         status_code=status.HTTP_204_NO_CONTENT,
         tags=["tags"],
@@ -1204,7 +1221,7 @@ def _register_routes(application: FastAPI) -> None:
                 status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=f"Cannot tag lap {lap_id}: {exc}"
             ) from exc
 
-    @application.delete(
+    @write_delete(
         "/api/laps/{lap_id}/tags/{tag}",
         status_code=status.HTTP_204_NO_CONTENT,
         tags=["tags"],

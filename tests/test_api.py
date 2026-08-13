@@ -739,6 +739,40 @@ class TestReadOnlyMode:
             files = {"files": ("x.eml", b"nope", "message/rfc822")}
             assert ro.post("/api/imports", files=files).status_code == 404
 
+    def test_read_only_keeps_every_read_route(self, monkeypatch, tmp_path) -> None:
+        """The regression this class missed the first time.
+
+        The guard used to be an early return placed at the first write route,
+        which also dropped /compare, /rankings, /drivers and the driver history:
+        the routes are grouped by subject, not by verb. Asserting that writes
+        disappear is not enough — reads have to survive intact.
+        """
+        from karting.api.app import create_app
+
+        monkeypatch.setenv("PACE_DB", str(tmp_path / "full.db"))
+        monkeypatch.delenv("PACE_READ_ONLY", raising=False)
+        full = {
+            (method, route.path)
+            for route in create_app().routes
+            if (method := next(iter(sorted(getattr(route, "methods", set()) - {"HEAD"})), None))
+        }
+
+        monkeypatch.setenv("PACE_READ_ONLY", "1")
+        limited = {
+            (method, route.path)
+            for route in create_app().routes
+            if (method := next(iter(sorted(getattr(route, "methods", set()) - {"HEAD"})), None))
+        }
+
+        reads = {route for route in full if route[0] == "GET"}
+        assert reads <= limited, f"read routes lost: {sorted(reads - limited)}"
+        assert full - limited == {
+            ("POST", "/api/sessions/{session_id}/events/detect"),
+            ("POST", "/api/imports"),
+            ("POST", "/api/laps/{lap_id}/tags"),
+            ("DELETE", "/api/laps/{lap_id}/tags/{tag}"),
+        }
+
     def test_the_flag_accepts_the_usual_spellings(self, monkeypatch) -> None:
         from karting.api.app import read_only
 
