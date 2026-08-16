@@ -376,3 +376,112 @@ table.data.metrics tbody td:last-child {
 .subject-picker select {
   min-width: 132px;
 }
+
+/* =========================================================== mobile layout */
+
+/*
+ * A grid or flex item defaults to `min-width: auto`, which means it refuses to
+ * shrink below its content. The metrics table sets `white-space: nowrap`, so
+ * the item grew past the viewport and the `overflow-x: auto` on `.table-wrap`
+ * never engaged — the table escaped the rounded card border instead of
+ * scrolling inside it. Zeroing the minimum is the whole fix for the overflow.
+ */
+.session-grid > *,
+.card,
+.explorer {
+  min-width: 0;
+}
+
+/* Keep wide content inside the rounded corner rather than under it. */
+.card {
+  overflow: hidden;
+}
+
+.table-wrap {
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 720px) {
+  .app-body {
+    padding: 12px 10px 32px;
+  }
+
+  .card {
+    padding: 12px 12px 14px;
+  }
+
+  /* Ten columns cannot fit a phone. These three carry the least: the finishing
+     position is already the ladder's whole point, «Идеал» is empty for every
+     driver without sector data, and «Круги» is a footnote by its own caption.
+     The rest stays, so no pace number disappears. */
+  table.data.metrics th:nth-child(1),
+  table.data.metrics td:nth-child(1),
+  table.data.metrics th:nth-child(9),
+  table.data.metrics td:nth-child(9),
+  table.data.metrics th:nth-child(10),
+  table.data.metrics td:nth-child(10) {
+    display: none;
+  }
+
+  table.data th,
+  table.data td {
+    padding: 5px 6px;
+  }
+
+  table.data.metrics td.numeric-strong {
+    font-size: 15px;
+  }
+
+  /* If a scroll is still needed, the driver has to stay visible — a row of
+     numbers with no name attached is worse than no table. */
+  table.data.metrics th[scope='row'] {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--surface-1);
+  }
+
+  table.data.metrics tbody tr.is-a th[scope='row'] {
+    background: color-mix(in oklab, var(--accent) 7%, var(--surface-1));
+  }
+
+  table.data.metrics tbody tr.is-b th[scope='row'] {
+    background: color-mix(in oklab, var(--series-2) 7%, var(--surface-1));
+  }
+
+  /* The ladder row needs 400 px of fixed tracks; on a 390 px phone the bar and
+     the spread band are the first things to give, since both restate numbers
+     printed next to them. */
+  .ladder-row {
+    gap: 8px;
+    padding: 10px 6px;
+    grid-template-columns: 22px minmax(0, 1fr) 104px;
+  }
+
+  .ladder-plot {
+    display: none;
+  }
+
+  .ladder-primary b {
+    font-size: 17px;
+  }
+
+  .explorer-bar {
+    gap: 8px 10px;
+  }
+
+  .segmented button {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .subject-picker {
+    margin-right: 0;
+  }
+
+  .app-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
